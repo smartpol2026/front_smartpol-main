@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Configuración global de tipografía */
+@layer base {
+  html {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply text-gray-900;
+    font-feature-settings: 'kern' 1;
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Asegurar que todos los elementos hereden la fuente correcta */
+  * {
+    font-family: inherit;
+  }
+  
+  /* Párrafos y texto normal */
+  p, span, div, a, button, input, textarea, select {
+    font-family: inherit;
+  }
+  
+  /* Headers */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+  }
+}
+
+/* Clase estándar para títulos de página */
+@layer components {
+  .page-title {
+    @apply text-2xl sm:text-3xl font-bold text-gray-900;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+}

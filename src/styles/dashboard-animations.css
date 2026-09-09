@@ -1,0 +1,132 @@
+/* Animación de pulsado para números en carga */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.metric-loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Animación de sincronización en tiempo real */
+@keyframes sync-pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sync-indicator {
+  animation: sync-pulse 2s ease-in-out infinite;
+}
+
+/* Animación de cambio de números */
+@keyframes number-change {
+  0% {
+    opacity: 0.5;
+    transform: translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.number-update {
+  animation: number-change 0.3s ease-out;
+}
+
+/* Animación de entrada para las tarjetas */
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.metric-card-entrance {
+  animation: card-entrance 0.4s ease-out;
+}
+
+/* Hover effect con elevación */
+@keyframes card-hover {
+  to {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+.metric-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metric-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Animación de rotación para el indicador de sincronización */
+@keyframes spin-sync {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-sync {
+  animation: spin-sync 2s linear infinite;
+}
+
+/* Gradient sutil en hover */
+.metric-card-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  transition: background 0.3s ease;
+}
+
+.metric-card-gradient:hover {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+}
+
+/* Pulse para el punto de sincronización */
+@keyframes dot-pulse {
+  0%, 100% {
+    background-color: #ef4444;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+}
+
+.sync-dot {
+  animation: dot-pulse 2s infinite;
+}
+
+/* Animación de fade para placeholders */
+@keyframes fade-in-out {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.fade-in-out {
+  animation: fade-in-out 1.5s ease-in-out infinite;
+}
