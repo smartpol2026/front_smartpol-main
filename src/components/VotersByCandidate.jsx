@@ -6,19 +6,31 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend, Title, ChartDataLabels);
 
 const COLORS = [
-  "#f59e0b", // Amber/Naranja
-  "#d97706", // Naranja oscuro
-  "#dc2626", // Rojo
-  "#10b981", // Emerald/Verde
-  "#059669", // Verde oscuro
-  "#6b7280", // Gris
-  "#ea580c", // Naranja quemado
-  "#b91c1c", // Rojo oscuro
-  "#047857", // Verde profundo
-  "#78716c", // Gris cálido
-  "#f97316", // Orange
-  "#8b5cf6", // Púrpura suave
+  "#f59e0b",
+  "#d97706",
+  "#dc2626",
+  "#10b981",
+  "#059669",
+  "#6b7280",
+  "#ea580c",
+  "#b91c1c",
+  "#047857",
+  "#78716c",
+  "#f97316",
+  "#8b5cf6",
 ];
+
+const normalizeColor = (value) => {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const withHash = trimmed.startsWith("#") ? trimmed : `#${trimmed}`;
+  return /^#[0-9A-Fa-f]{6}$/.test(withHash) ? withHash.toUpperCase() : null;
+};
+
+const resolveCandidateColor = (item, index) => {
+  return normalizeColor(item.candidateColor) || COLORS[index % COLORS.length];
+};
 
 export const VotersByCandidate = ({ data = [] }) => {
   const total = useMemo(() => {
@@ -42,19 +54,17 @@ export const VotersByCandidate = ({ data = [] }) => {
 
     const labels = data.map((item) => item.candidateName);
     const values = data.map((item) => item.voterCount);
+    const colors = data.map((item, index) => resolveCandidateColor(item, index));
 
     return {
       labels,
       datasets: [
         {
           data: values,
-          backgroundColor: COLORS.slice(0, data.length),
+          backgroundColor: colors,
           borderColor: "#fff",
           borderWidth: 2,
-          hoverBackgroundColor: COLORS.slice(0, data.length).map((color) => {
-            // Hacer los colores más brillantes en hover
-            return color;
-          }),
+          hoverBackgroundColor: colors,
           hoverBorderColor: "#000",
           hoverBorderWidth: 3,
           borderDash: [],
@@ -116,7 +126,6 @@ export const VotersByCandidate = ({ data = [] }) => {
         formatter: (value) => {
           if (total === 0) return "";
           const percentage = ((value / total) * 100).toFixed(1);
-          // No mostrar si el porcentaje es 0%
           return parseFloat(percentage) > 0 ? `${percentage}%` : "";
         },
         anchor: "center",
@@ -135,7 +144,6 @@ export const VotersByCandidate = ({ data = [] }) => {
         <Doughnut data={chartData} options={options} />
       </div>
 
-      {/* Tabla de porcentajes */}
       {data.length > 0 && (
         <div className="mt-6 pt-4 border-t border-gray-200 flex-1 overflow-hidden flex flex-col">
           <h3 className="text-sm font-semibold text-gray-700 mb-3">
@@ -154,7 +162,7 @@ export const VotersByCandidate = ({ data = [] }) => {
                     <div
                       className="w-3 h-3 rounded-full flex-shrink-0"
                       style={{
-                        backgroundColor: COLORS[index % COLORS.length],
+                        backgroundColor: resolveCandidateColor(item, index),
                       }}
                     ></div>
                     <span className="text-gray-700 truncate">
