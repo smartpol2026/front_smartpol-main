@@ -15,6 +15,7 @@ import {
   getLeaderByUserId,
 } from "../api/leaders";
 import { getVotingBooths } from "../api/votingbooths";
+import { getPoliticalStatuses } from "../api/political-statuses";
 import { usePermission } from "../hooks/usePermission";
 import { useUser } from "../context/UserContext";
 import { useAlert } from "../hooks/useAlert";
@@ -24,6 +25,27 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
   const { can } = usePermission();
   const { user } = useUser();
   const alert = useAlert();
+  const getPoliticalStatusId = (voterData) => {
+    if (!voterData) return "";
+    if (voterData.politicalStatusId !== undefined && voterData.politicalStatusId !== null) {
+      return voterData.politicalStatusId.toString();
+    }
+    if (
+      typeof voterData.politicalStatus === "object" &&
+      voterData.politicalStatus?.id !== undefined &&
+      voterData.politicalStatus?.id !== null
+    ) {
+      return voterData.politicalStatus.id.toString();
+    }
+    if (
+      typeof voterData.politicalStatus === "number" ||
+      (typeof voterData.politicalStatus === "string" &&
+        /^\d+$/.test(voterData.politicalStatus))
+    ) {
+      return voterData.politicalStatus.toString();
+    }
+    return "";
+  };
   const [form, setForm] = useState({
     firstName: voter?.firstName || "",
     lastName: voter?.lastName || "",
@@ -40,7 +62,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
     occupation: voter?.occupation || "",
     votingBoothId: voter?.votingBoothId?.toString() || "",
     votingTableId: voter?.votingTableId?.toString() || "",
-    politicalStatus: voter?.politicalStatus || "Active",
+    politicalStatusId: getPoliticalStatusId(voter),
     leaderId: "",
     candidateIds: [],
   });
@@ -50,6 +72,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
   const [leaders, setLeaders] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [votingBooths, setVotingBooths] = useState([]);
+  const [politicalStatuses, setPoliticalStatuses] = useState([]);
   const [filteredBooths, setFilteredBooths] = useState([]);
   const [mesas, setMesas] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -93,6 +116,10 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
     getDepartments().then(setDepartments);
     loadData();
     getVotingBooths().then(setVotingBooths);
+    getPoliticalStatuses().then((data) => {
+      const statuses = Array.isArray(data) ? data : data?.data || [];
+      setPoliticalStatuses(statuses);
+    });
 
     // Si es edición, obtener datos de asignación actual
     if (voter) {
@@ -255,8 +282,8 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
                     voterData.votingBoothId?.toString() || prev.votingBoothId,
                   votingTableId:
                     voterData.votingTableId?.toString() || prev.votingTableId,
-                  politicalStatus:
-                    voterData.politicalStatus || prev.politicalStatus,
+                  politicalStatusId:
+                    getPoliticalStatusId(voterData) || prev.politicalStatusId,
                 }));
 
                 alert.success(
@@ -292,8 +319,8 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
                 historyData.votingBoothId?.toString() || prev.votingBoothId,
               votingTableId:
                 historyData.votingTableId?.toString() || prev.votingTableId,
-              politicalStatus:
-                historyData.politicalStatus || prev.politicalStatus,
+              politicalStatusId:
+                getPoliticalStatusId(historyData) || prev.politicalStatusId,
             }));
 
             alert.success(
@@ -406,6 +433,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
       leaderId: "Líder",
       departmentId: "Departamento",
       municipalityId: "Municipio",
+      politicalStatusId: "Estado político",
     };
 
     for (const [field, label] of Object.entries(requiredFields)) {
@@ -506,8 +534,8 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
     if (form.occupation) voterPayload.occupation = form.occupation;
     if (form.votingTableId)
       voterPayload.votingTableId = String(form.votingTableId);
-    if (form.politicalStatus)
-      voterPayload.politicalStatus = form.politicalStatus;
+    if (form.politicalStatusId)
+      voterPayload.politicalStatusId = Number(form.politicalStatusId);
 
     console.log("Payload enviado:", voterPayload);
 
@@ -699,6 +727,21 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
               {mesas.map((mesa) => (
                 <option key={mesa.number} value={mesa.label}>
                   {mesa.label}
+                </option>
+              ))}
+            </Select>
+
+            <Select
+              label="Estado político"
+              name="politicalStatusId"
+              value={form.politicalStatusId}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccione</option>
+              {politicalStatuses.map((status) => (
+                <option key={status.id} value={status.id}>
+                  {status.name}
                 </option>
               ))}
             </Select>

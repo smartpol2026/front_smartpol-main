@@ -42,6 +42,7 @@ export default function Candidatos() {
   const [formData, setFormData] = useState({
     name: "",
     party: "",
+    color: "",
     number: "",
     organizationId: "",
     campaignId: "",
@@ -174,6 +175,7 @@ export default function Candidatos() {
     setFormData({
       name: candidate.name || "",
       party: candidate.party || "",
+      color: candidate.color || "",
       number: candidate.number || "",
       organizationId: orgId,
       campaignId: candidate.campaignId || "",
@@ -214,6 +216,10 @@ export default function Candidatos() {
         party: formData.party || null,
         number: formData.number ? parseInt(formData.number) : null,
       };
+
+      if (formData.color) {
+        candidateUpdateData.color = formData.color;
+      }
 
       // Agregar campaignId si se proporciona
       if (formData.campaignId) {
@@ -396,6 +402,28 @@ export default function Candidatos() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   disabled={saving}
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Color del candidato
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="color"
+                    name="color"
+                    value={formData.color || "#F97316"}
+                    onChange={handleInputChange}
+                    className="h-10 w-14 rounded border border-gray-300 cursor-pointer"
+                    disabled={saving}
+                  />
+                  <input
+                    type="text"
+                    value={formData.color || "Sin color"}
+                    readOnly
+                    className="flex-1 rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-700"
+                  />
+                </div>
               </div>
 
               <div>

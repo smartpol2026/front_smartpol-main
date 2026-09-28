@@ -29,11 +29,17 @@ export default function CreateCandidates() {
     confirmPassword: "",
     name: "",
     party: "",
+    partyColor: "",
     number: "",
     organizationId: "",
     corporation_id: "",
     campaignId: "",
   });
+
+  const generateRandomColor = () => {
+    const color = Math.floor(Math.random() * 0xffffff).toString(16);
+    return `#${color.padStart(6, "0").toUpperCase()}`;
+  };
 
   const validationRules = {
     email: [ValidationRules.required, ValidationRules.email],
@@ -166,6 +172,7 @@ export default function CreateCandidates() {
       const candidateData = {
         name: formData.name,
         party: formData.party,
+        color: formData.partyColor || generateRandomColor(),
         number: parseInt(formData.number, 10) || 1,
         corporation_id: parseInt(formData.corporation_id, 10),
         userId: userResponse.id,
@@ -184,6 +191,7 @@ export default function CreateCandidates() {
         confirmPassword: "",
         name: "",
         party: "",
+        partyColor: "",
         number: "1",
         organizationId: "",
         corporation_id: "",
@@ -398,6 +406,31 @@ export default function CreateCandidates() {
                       {formErrors.party}
                     </p>
                   )}
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="partyColor"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Color del Partido
+                </label>
+                <div className="mt-1 flex items-center gap-3">
+                  <input
+                    type="color"
+                    name="partyColor"
+                    id="partyColor"
+                    value={formData.partyColor || "#F97316"}
+                    onChange={handleInputChange}
+                    className="h-11 w-16 rounded border border-gray-300 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={formData.partyColor || "Aleatorio al guardar"}
+                    readOnly
+                    className="flex-1 rounded-lg border border-gray-300 bg-gray-50 px-3 py-3 text-sm text-gray-700"
+                  />
                 </div>
               </div>
 
