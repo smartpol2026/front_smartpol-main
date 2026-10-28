@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { getVoterReport, getVoterReportForExport } from "../api/reports";
+import { useState, useEffect } from "react";
+import {
+  getVoterReport,
+  getVoterReportForExport,
+} from "../api/reports";
 import { getLeaderByUserId } from "../api/leaders";
 import { getCandidateByUserId } from "../api/candidates";
 import ReportFilters from "../components/ReportFilters";
@@ -11,13 +14,10 @@ import { useUser } from "../context/UserContext";
 export default function Reportes() {
   const { user } = useUser();
   const [voters, setVoters] = useState([]);
-  const [allVoters, setAllVoters] = useState([]); // Todos los votantes para búsqueda
   const [aggregations, setAggregations] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [loadingAll, setLoadingAll] = useState(false);
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({});
-  const [activeFilters, setActiveFilters] = useState({});
   const [pagination, setPagination] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [candidateId, setCandidateId] = useState(null);
@@ -64,7 +64,7 @@ export default function Reportes() {
           setLeaderId(null);
           setLoadingLeaderId(false);
         }
-      } catch (err) {
+      } catch {
         setLoadingCandidateId(false);
         setLoadingLeaderId(false);
       }
@@ -90,86 +90,50 @@ export default function Reportes() {
       return;
     }
 
-    loadReport(filters, currentPage);
-  }, [
-    filters,
-    currentPage,
-    candidateId,
-    loadingCandidateId,
-    leaderId,
-    loadingLeaderId,
-    user?.roleId,
-  ]);
+    let active = true;
+    const loadReport = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        // Si el usuario es candidato o líder, agregar automáticamente su ID al filtro
+        const filtersToApply = { ...filters };
+        if (user?.roleId === 3 && candidateId) {
+          filtersToApply.candidateId = candidateId;
+        } else if (user?.roleId === 4 && leaderId) {
+          filtersToApply.leaderId = leaderId;
+        }
 
-  const loadReport = async (currentFilters, page = 1) => {
-    setLoading(true);
-    setError(null);
-    try {
-      // Si el usuario es candidato o líder, agregar automáticamente su ID al filtro
-      let filtersToApply = { ...currentFilters };
-      if (user?.roleId === 3 && candidateId) {
-        filtersToApply.candidateId = candidateId;
-      } else if (user?.roleId === 4 && leaderId) {
-        filtersToApply.leaderId = leaderId;
+        const response = await getVoterReport({
+          ...filtersToApply,
+          page: currentPage,
+          limit: 50,
+        });
+        if (!active) return;
+
+        setVoters(response.data || []);
+        setAggregations(response.aggregations || null);
+        setPagination({
+          page: response.page || currentPage,
+          limit: response.limit || 50,
+          total: response.total ?? 0,
+        });
+      } catch (error) {
+        if (!active) return;
+        console.error("Error loading report:", error);
+        setError(error.message || "Error al cargar el reporte");
+        setVoters([]);
+        setAggregations(null);
+        setPagination(null);
+      } finally {
+        if (active) setLoading(false);
       }
-
-      const response = await getVoterReport({
-        ...filtersToApply,
-        page,
-        limit: 50,
-      });
-
-      console.log("Reporte recibido:", response);
-      console.log("Total de votantes:", response.total);
-      console.log("Cantidad de datos:", response.data?.length);
-
-      const data = response.data || [];
-      setVoters(data);
-      setAggregations(response.aggregations || null);
-
-      // Asegurar que el total coincida con los datos reales
-      const totalVoters = data.length > 0 ? response.total : 0;
-
-      setPagination({
-        page: response.page || 1,
-        limit: response.limit || 50,
-        total: totalVoters,
-      });
-    } catch (error) {
-      console.error("Error loading report:", error);
-      setError(error.message || "Error al cargar el reporte");
-      setVoters([]);
-      setAggregations(null);
-      setPagination(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadAllVoters = async () => {
-    setLoadingAll(true);
-    try {
-      // Si el usuario es candidato o líder, agregar automáticamente su ID al filtro
-      let filtersToApply = { ...activeFilters };
-      if (user?.roleId === 3 && candidateId) {
-        filtersToApply.candidateId = candidateId;
-      } else if (user?.roleId === 4 && leaderId) {
-        filtersToApply.leaderId = leaderId;
-      }
-
-      const response = await getVoterReportForExport(filtersToApply);
-      setAllVoters(response.data || []);
-    } catch (error) {
-      console.error("Error loading all voters for search:", error);
-      setAllVoters([]);
-    } finally {
-      setLoadingAll(false);
-    }
-  };
+    };
+    loadReport();
+    return () => { active = false; };
+  }, [filters, currentPage, candidateId, loadingCandidateId, leaderId, loadingLeaderId, user?.roleId]);
 
   const handleFiltersChange = (newFilters) => {
     setFilters(newFilters);
-    setActiveFilters(newFilters);
     setCurrentPage(1); // Reset a página 1
   };
 
@@ -179,8 +143,15 @@ export default function Reportes() {
 
   const handleExportRequest = async () => {
     try {
+      const filtersToExport = { ...filters };
+      if (user?.roleId === 3 && candidateId) {
+        filtersToExport.candidateId = candidateId;
+      } else if (user?.roleId === 4 && leaderId) {
+        filtersToExport.leaderId = leaderId;
+      }
+
       // Obtener TODOS los datos sin paginación para la exportación
-      const response = await getVoterReportForExport(activeFilters);
+      const response = await getVoterReportForExport(filtersToExport);
       return response.data || [];
     } catch (error) {
       console.error("Error al obtener datos para exportación:", error);
@@ -234,10 +205,11 @@ export default function Reportes() {
         <div>
           {/* Header */}
           <div>
-            <h1 className="page-title">Informe General de Votantes</h1>
+            <h1 className="page-title">
+              Informe General de Votantes
+            </h1>
             <p className="text-gray-600 text-sm sm:text-base mt-2">
-              Visualiza, analiza y exporta la información de votantes registrada
-              en SMARTPOL
+              Visualiza, analiza y exporta la información de votantes registrada en SMARTPOL
             </p>
           </div>
 
@@ -246,20 +218,15 @@ export default function Reportes() {
             <div className="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm sm:text-base">
               <p className="font-semibold">Error al cargar los datos</p>
               <p className="text-xs sm:text-sm">{error}</p>
-              <p className="text-xs mt-2 text-red-600">
-                Verifica que el servidor backend esté ejecutándose en
-                http://localhost:3000
-              </p>
             </div>
           )}
 
           {/* Filtros Dinámicos */}
-          {!error && (
-            <ReportFilters
-              onFiltersChange={handleFiltersChange}
-              aggregations={aggregations}
-            />
-          )}
+          <ReportFilters
+            onFiltersChange={handleFiltersChange}
+            aggregations={aggregations}
+            currentFilters={filters}
+          />
 
           {/* Contadores Interactivos */}
           {aggregations && !error && (
@@ -269,36 +236,17 @@ export default function Reportes() {
             />
           )}
 
-          {/* Filtros activos */}
-          {Object.keys(activeFilters).length > 0 && !error && (
-            <div className="bg-blue-50 p-3 sm:p-4 rounded-lg border border-blue-200">
-              <p className="text-xs sm:text-sm font-semibold text-blue-900 mb-2">
-                Filtros activos:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {Object.entries(activeFilters).map(([key, value]) => (
-                  <span
-                    key={key}
-                    className="px-2 sm:px-3 py-1 bg-blue-200 text-blue-900 rounded-full text-xs sm:text-sm font-medium"
-                  >
-                    {key}:{" "}
-                    {typeof value === "object" ? JSON.stringify(value) : value}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Tabla de Votantes */}
           {!error && (
             <VotersTable
               voters={voters}
-              filters={activeFilters}
               loading={loading}
               pagination={pagination}
               currentPageProp={currentPage}
               onPageChange={handlePageChange}
               onExportRequest={handleExportRequest}
+              exportPermission="reports:read"
+              fileName="Informe_Votantes"
             />
           )}
         </div>

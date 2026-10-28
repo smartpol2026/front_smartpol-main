@@ -376,21 +376,121 @@ export default function Sidebar({ isOpen, onClose }) {
               </li>
             )}
 
-            {/* Reportes */}
+            {/* Submenú Reportes */}
             {canSeeReportes && (
               <li>
-                <Link
-                  to="/app/reportes"
-                  onClick={handleLinkClick}
-                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all
+                <button
+                  onClick={() =>
+                    setExpandedMenu(
+                      expandedMenu === "reportes" ? null : "reportes",
+                    )
+                  }
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all
                     ${
+                      expandedMenu === "reportes" ||
                       isActive("/app/reportes")
-                        ? "bg-orange-500 text-white shadow-md"
-                        : "text-gray-600 hover:bg-orange-100 hover:text-orange-600"
+                        ? "bg-orange-100 text-orange-600"
+                        : "text-gray-600 hover:bg-orange-50 hover:text-orange-600"
                     }`}
                 >
                   <span className="ml-3">Reportes</span>
-                </Link>
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                      expandedMenu === "reportes" ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                    />
+                  </svg>
+                </button>
+
+                {expandedMenu === "reportes" && (
+                  <ul className="space-y-1 mt-2 pl-4">
+                    <li>
+                      <Link
+                        to="/app/reportes"
+                        onClick={handleLinkClick}
+                        className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all
+                          ${
+                            location.pathname === "/app/reportes" &&
+                            !location.search
+                              ? "bg-orange-500 text-white shadow-md"
+                              : "text-gray-600 hover:bg-orange-100 hover:text-orange-600"
+                          }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3"></span>
+                        <span>Reporte por votantes</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/app/reportes/candidatos"
+                        onClick={handleLinkClick}
+                        className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all
+                          ${
+                            location.pathname === "/app/reportes/candidatos"
+                              ? "bg-orange-500 text-white shadow-md"
+                              : "text-gray-600 hover:bg-orange-100 hover:text-orange-600"
+                          }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3"></span>
+                        <span>Reporte por candidatos</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/app/reportes/lideres"
+                        onClick={handleLinkClick}
+                        className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all
+                          ${
+                            location.pathname === "/app/reportes/lideres"
+                              ? "bg-orange-500 text-white shadow-md"
+                              : "text-gray-600 hover:bg-orange-100 hover:text-orange-600"
+                          }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3"></span>
+                        <span>Reporte por líderes</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/app/reportes/partidos"
+                        onClick={handleLinkClick}
+                        className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all
+                          ${
+                            location.pathname === "/app/reportes/partidos"
+                              ? "bg-orange-500 text-white shadow-md"
+                              : "text-gray-600 hover:bg-orange-100 hover:text-orange-600"
+                          }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3"></span>
+                        <span>Reporte por partido</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/app/reportes/estado-politico"
+                        onClick={handleLinkClick}
+                        className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all
+                          ${
+                            location.pathname === "/app/reportes/estado-politico"
+                              ? "bg-orange-500 text-white shadow-md"
+                              : "text-gray-600 hover:bg-orange-100 hover:text-orange-600"
+                          }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3"></span>
+                        <span>Reporte por estado político</span>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </li>
             )}
 

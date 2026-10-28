@@ -16,6 +16,10 @@ import Digitadores from "./pages/Digitadores";
 import Administradores from "./pages/Administradores";
 import Especiales from "./pages/Especiales";
 import Reportes from "./pages/Reportes";
+import CandidateReport from "./pages/CandidateReport";
+import LeaderReport from "./pages/LeaderReport";
+import PartyReport from "./pages/PartyReport";
+import PoliticalStatusReport from "./pages/PoliticalStatusReport";
 import CreateCandidates from "./pages/CreateCandidates";
 import CreateLeaders from "./pages/CreateLeaders";
 import CreateDigitadores from "./pages/CreateDigitadores";
@@ -325,6 +329,40 @@ function App() {
               element={
                 <PermissionRoute requiredPermission="reports:read">
                   <Reportes />
+                </PermissionRoute>
+              }
+            />
+            <Route
+              path="reportes/candidatos"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <CandidateReport />
+                </PermissionRoute>
+              }
+            />
+            <Route
+              path="reportes/lideres"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <LeaderReport />
+                </PermissionRoute>
+              }
+            />
+
+            <Route
+              path="reportes/partidos"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <PartyReport />
+                </PermissionRoute>
+              }
+            />
+
+            <Route
+              path="reportes/estado-politico"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <PoliticalStatusReport />
                 </PermissionRoute>
               }
             />
