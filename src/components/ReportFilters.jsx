@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getAllLeaders } from "../api/leaders";
 import { getAllCandidates } from "../api/candidates";
 import { getDepartments, getMunicipalities } from "../api/departments";
 import { getCorporations } from "../api/corporations";
 import { getVotingBooths } from "../api/votingbooths";
+import { getPoliticalStatuses } from "../api/political-statuses";
 
-export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
-  const [filters, setFilters] = useState({
+export default function ReportFilters({ onFiltersChange, aggregations = {}, currentFilters = {} }) {
+  const filters = {
     gender: "",
     leaderId: "",
     corporationId: "",
     candidateId: "",
+    politicalStatusId: "",
     departmentId: "",
     municipalityId: "",
     votingBoothId: "",
     votingTableId: "",
-  });
+    ...currentFilters,
+  };
 
   const [leaders, setLeaders] = useState([]);
   const [corporations, setCorporations] = useState([]);
   const [candidates, setCandidates] = useState([]);
-  const [filteredCandidates, setFilteredCandidates] = useState([]);
+  const [politicalStatuses, setPoliticalStatuses] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [municipalities, setMunicipalities] = useState([]);
   const [votingBooths, setVotingBooths] = useState([]);
-  const [filteredBooths, setFilteredBooths] = useState([]);
-  const [mesas, setMesas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,12 +36,14 @@ export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
           leadersData,
           candidatesData,
           corporationsData,
+          politicalStatusesData,
           departmentsData,
           boothsData,
         ] = await Promise.all([
           getAllLeaders(),
           getAllCandidates(),
           getCorporations(),
+          getPoliticalStatuses(),
           getDepartments(),
           getVotingBooths(),
         ]);
@@ -49,19 +52,21 @@ export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
         setCorporations(
           Array.isArray(corporationsData) ? corporationsData : [],
         );
+        setPoliticalStatuses(
+          Array.isArray(politicalStatusesData)
+            ? politicalStatusesData
+            : politicalStatusesData?.data || [],
+        );
         setDepartments(Array.isArray(departmentsData) ? departmentsData : []);
         setVotingBooths(Array.isArray(boothsData) ? boothsData : []);
-        setFilteredCandidates(
-          Array.isArray(candidatesData) ? candidatesData : [],
-        );
       } catch (error) {
         console.error("Error loading filter options:", error);
         setLeaders([]);
         setCandidates([]);
         setCorporations([]);
+        setPoliticalStatuses([]);
         setDepartments([]);
         setVotingBooths([]);
-        setFilteredCandidates([]);
       } finally {
         setLoading(false);
       }
@@ -72,60 +77,53 @@ export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
 
   // Cargar municipios cuando cambia el departamento
   useEffect(() => {
-    if (filters.departmentId) {
-      loadMunicipalities(filters.departmentId);
-    } else {
-      setMunicipalities([]);
-      setFilters((prev) => ({
-        ...prev,
-        municipalityId: "",
-        votingBoothId: "",
-        votingTableId: "",
-      }));
-    }
+    let active = true;
+    const load = async () => {
+      try {
+        const data = filters.departmentId ? await getMunicipalities(filters.departmentId) : [];
+        if (active) setMunicipalities(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error loading municipalities:", error);
+        if (active) setMunicipalities([]);
+      }
+    };
+    load();
+    return () => { active = false; };
   }, [filters.departmentId]);
 
-  // Cargar puestos de votación cuando cambia el municipio
-  useEffect(() => {
-    if (filters.municipalityId) {
-      const filtered = votingBooths.filter(
+  // Filtrar puestos de votación cuando cambia el municipio
+  const filteredBooths = useMemo(
+    () => filters.municipalityId
+      ? votingBooths.filter(
         (booth) => booth.municipalityId === parseInt(filters.municipalityId),
-      );
-      setFilteredBooths(filtered);
-    } else {
-      setFilteredBooths([]);
-      setFilters((prev) => ({ ...prev, votingBoothId: "", votingTableId: "" }));
-    }
-  }, [filters.municipalityId, votingBooths]);
+      )
+      : [],
+    [filters.municipalityId, votingBooths],
+  );
 
   // Generar mesas cuando cambia el puesto de votación
-  useEffect(() => {
+  const mesas = useMemo(() => {
     if (filters.votingBoothId) {
       const selectedBooth = filteredBooths.find(
         (booth) => booth.id === parseInt(filters.votingBoothId),
       );
       if (selectedBooth && selectedBooth.mesas) {
-        const mesasArray = Array.from(
+        return Array.from(
           { length: selectedBooth.mesas },
           (_, i) => ({
             number: i + 1,
             label: `Mesa ${i + 1}`,
           }),
         );
-        setMesas(mesasArray);
-      } else {
-        setMesas([]);
       }
-    } else {
-      setMesas([]);
-      setFilters((prev) => ({ ...prev, votingTableId: "" }));
     }
+    return [];
   }, [filters.votingBoothId, filteredBooths]);
 
   // Filtrar candidatos cuando cambia la corporación
-  useEffect(() => {
+  const filteredCandidates = useMemo(() => {
     if (filters.corporationId) {
-      const filtered = candidates.filter((c) => {
+      return candidates.filter((c) => {
         // Manejo seguro del objeto corporation
         const corporationId =
           typeof c.corporation === "object"
@@ -133,30 +131,9 @@ export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
             : c.corporationId;
         return corporationId === parseInt(filters.corporationId);
       });
-      setFilteredCandidates(filtered);
-      // Reset candidateId si el candidato actual no está en la corporación seleccionada
-      if (
-        filters.candidateId &&
-        !filtered.some((c) => c.id === parseInt(filters.candidateId))
-      ) {
-        setFilters((prev) => ({ ...prev, candidateId: "" }));
-      }
-    } else {
-      setFilteredCandidates(candidates);
     }
+    return candidates;
   }, [filters.corporationId, candidates]);
-
-  const loadMunicipalities = async (departmentId) => {
-    try {
-      const municipalitiesData = await getMunicipalities(departmentId);
-      setMunicipalities(
-        Array.isArray(municipalitiesData) ? municipalitiesData : [],
-      );
-    } catch (error) {
-      console.error("Error loading municipalities:", error);
-      setMunicipalities([]);
-    }
-  };
 
   const handleFilterChange = (key, value) => {
     const newFilters = {
@@ -182,7 +159,9 @@ export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
       newFilters.votingTableId = "";
     }
 
-    setFilters(newFilters);
+    if (key === "corporationId" && value !== filters.corporationId) {
+      newFilters.candidateId = "";
+    }
     onFiltersChange(newFilters);
   };
 
@@ -192,16 +171,12 @@ export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
       leaderId: "",
       corporationId: "",
       candidateId: "",
+      politicalStatusId: "",
       departmentId: "",
       municipalityId: "",
       votingBoothId: "",
       votingTableId: "",
     };
-    setFilters(emptyFilters);
-    setMunicipalities([]);
-    setFilteredBooths([]);
-    setMesas([]);
-    setFilteredCandidates(candidates);
     onFiltersChange(emptyFilters);
   };
 
@@ -220,6 +195,27 @@ export default function ReportFilters({ onFiltersChange, aggregations = {} }) {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        {/* Estado político */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Estado político
+          </label>
+          <select
+            value={filters.politicalStatusId}
+            onChange={(e) =>
+              handleFilterChange("politicalStatusId", e.target.value)
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Todos los estados políticos</option>
+            {politicalStatuses.map((status) => (
+              <option key={status.id} value={status.id}>
+                {status.name || "Sin nombre"}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Género */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">

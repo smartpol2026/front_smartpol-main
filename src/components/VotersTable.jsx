@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from "react";
-import * as XLSX from "xlsx";
+import { useState, useEffect } from "react";
 import { Workbook } from "exceljs";
 import { getVotingBooths } from "../api/votingbooths";
-import { getDepartments, getMunicipalities } from "../api/departments";
+import { getDepartments } from "../api/departments";
+import { getPoliticalStatuses } from "../api/political-statuses";
 import { usePermission } from "../hooks/usePermission";
 import Pagination from "./Pagination";
+
+function SortIcon({ column, sortConfig }) {
+  if (sortConfig.key !== column) return <span className="text-gray-400">⇅</span>;
+  return sortConfig.direction === "asc" ? <span>▲</span> : <span>▼</span>;
+}
 
 export default function VotersTable({
   voters,
   allVotersForExport,
-  filters,
   loading,
   pagination,
   currentPageProp,
   onPageChange,
   onExportRequest,
+  exportPermission = "voters:read",
+  fileName: exportFileName = "Informe_Votantes",
 }) {
   const { can } = usePermission();
+  const canExport = can(exportPermission);
   const [enrichedVoters, setEnrichedVoters] = useState([]);
   const [boothsMap, setBoothsMap] = useState({});
   const [departmentsMap, setDepartmentsMap] = useState({});
-  const [municipalitiesMap, setMunicipalitiesMap] = useState({});
+  const [politicalStatusesMap, setPoliticalStatusesMap] = useState({});
   const [sortConfig, setSortConfig] = useState({
     key: "firstName",
     direction: "asc",
@@ -47,6 +54,17 @@ export default function VotersTable({
           deptMapTemp[dept.id] = dept;
         });
         setDepartmentsMap(deptMapTemp);
+
+        // Cargar estados políticos para mostrar sus nombres
+        const politicalStatusesResponse = await getPoliticalStatuses();
+        const politicalStatuses = Array.isArray(politicalStatusesResponse)
+          ? politicalStatusesResponse
+          : politicalStatusesResponse?.data || [];
+        const politicalStatusesMapTemp = {};
+        politicalStatuses.forEach((status) => {
+          politicalStatusesMapTemp[status.id] = status;
+        });
+        setPoliticalStatusesMap(politicalStatusesMapTemp);
       } catch (err) {
         console.error("Error al obtener datos base:", err);
       }
@@ -107,7 +125,33 @@ export default function VotersTable({
     } else {
       setEnrichedVoters([]);
     }
-  }, [voters, boothsMap, departmentsMap, municipalitiesMap]);
+  }, [
+    voters,
+    boothsMap,
+    departmentsMap,
+    politicalStatusesMap,
+  ]);
+
+  const getPoliticalStatusName = (voter) => {
+    if (voter.politicalStatus?.name) return voter.politicalStatus.name;
+    if (voter.politicalStatusName) return voter.politicalStatusName;
+    if (
+      typeof voter.politicalStatus === "string" &&
+      !/^\d+$/.test(voter.politicalStatus)
+    ) {
+      return voter.politicalStatus;
+    }
+
+    const statusId =
+      voter.politicalStatusId ??
+      (typeof voter.politicalStatus === "number" ||
+      (typeof voter.politicalStatus === "string" &&
+        /^\d+$/.test(voter.politicalStatus))
+        ? voter.politicalStatus
+        : null);
+
+    return politicalStatusesMap[statusId]?.name || "N/A";
+  };
 
   const sortedVoters = [...enrichedVoters].sort((a, b) => {
     const aValue = a[sortConfig.key];
@@ -180,6 +224,7 @@ export default function VotersTable({
       { header: "Apellido", key: "Apellido", width: 16 },
       { header: "Identificación", key: "Identificación", width: 16 },
       { header: "Género", key: "Género", width: 12 },
+      { header: "Estado político", key: "EstadoPolitico", width: 18 },
       { header: "Teléfono", key: "Teléfono", width: 15 },
       { header: "Email", key: "Email", width: 26 },
       { header: "Departamento", key: "Departamento", width: 16 },
@@ -262,6 +307,7 @@ export default function VotersTable({
         Apellido: rowData.Apellido,
         Identificación: rowData.Identificación,
         Género: rowData.Género,
+        EstadoPolitico: rowData["Estado político"],
         Teléfono: rowData.Teléfono,
         Email: rowData.Email,
         Departamento: rowData.Departamento,
@@ -307,7 +353,7 @@ export default function VotersTable({
 
     worksheet.views = [{ state: "frozen", ySplit: 1, xSplit: 0 }];
 
-    const fileName = `Informe_Votantes_${new Date().toISOString().slice(0, 10)}.xlsx`;
+    const fileName = `${exportFileName}_${new Date().toISOString().slice(0, 10)}.xlsx`;
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -318,12 +364,6 @@ export default function VotersTable({
     link.download = fileName;
     link.click();
     window.URL.revokeObjectURL(url);
-  };
-
-  const SortIcon = ({ column }) => {
-    if (sortConfig.key !== column)
-      return <span className="text-gray-400">⇅</span>;
-    return sortConfig.direction === "asc" ? <span>▲</span> : <span>▼</span>;
   };
 
   const processExportData = (dataToExport) => {
@@ -357,6 +397,7 @@ export default function VotersTable({
             : voter.gender === "F"
               ? "Femenino"
               : "Otro",
+        "Estado político": getPoliticalStatusName(voter),
         Teléfono: voter.phone || "N/A",
         Email: voter.email || "N/A",
         Departamento: voter.department?.name || "N/A",
@@ -420,6 +461,7 @@ export default function VotersTable({
       "Apellido",
       "Identificación",
       "Género",
+      "Estado político",
       "Teléfono",
       "Email",
       "Departamento",
@@ -455,7 +497,7 @@ export default function VotersTable({
       ),
     ].join("\n");
 
-    const fileName = `Informe_Votantes_${new Date().toISOString().slice(0, 10)}.csv`;
+    const fileName = `${exportFileName}_${new Date().toISOString().slice(0, 10)}.csv`;
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -513,6 +555,7 @@ export default function VotersTable({
       "Apellido",
       "Identificación",
       "Género",
+      "Estado político",
       "Teléfono",
       "Email",
       "Departamento",
@@ -586,7 +629,7 @@ export default function VotersTable({
 
     textContent += separator() + "\n";
 
-    const fileName = `Informe_Votantes_${new Date().toISOString().slice(0, 10)}.txt`;
+    const fileName = `${exportFileName}_${new Date().toISOString().slice(0, 10)}.txt`;
     const blob = new Blob([textContent], { type: "text/plain;charset=utf-8;" });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -618,16 +661,16 @@ export default function VotersTable({
         <div className="relative">
           <button
             onClick={() => setShowExportMenu(!showExportMenu)}
-            disabled={!can("voters:read") || isExporting}
+            disabled={!canExport || isExporting}
             title={
-              !can("voters:read")
+              !canExport
                 ? "No tienes permiso para exportar"
                 : isExporting
                   ? "Generando archivo..."
                   : "Selecciona formato de exportación"
             }
             className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-md transition flex items-center justify-center sm:justify-start gap-2 text-sm sm:text-base ${
-              can("voters:read") && !isExporting
+              canExport && !isExporting
                 ? "bg-green-600 text-white hover:bg-green-700"
                 : !isExporting
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -647,7 +690,7 @@ export default function VotersTable({
             )}
           </button>
 
-          {showExportMenu && !isExporting && can("voters:read") && (
+          {showExportMenu && !isExporting && canExport && (
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
               <button
                 onClick={exportToExcel}
@@ -682,19 +725,22 @@ export default function VotersTable({
                   className="px-4 py-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-gray-200"
                   onClick={() => handleSort("firstName")}
                 >
-                  Nombre <SortIcon column="firstName" />
+                  Nombre <SortIcon column="firstName" sortConfig={sortConfig} />
                 </th>
                 <th
                   className="px-4 py-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-gray-200"
                   onClick={() => handleSort("lastName")}
                 >
-                  Apellido <SortIcon column="lastName" />
+                  Apellido <SortIcon column="lastName" sortConfig={sortConfig} />
                 </th>
                 <th className="px-4 py-3 text-left font-semibold text-gray-700">
                   Identificación
                 </th>
                 <th className="px-4 py-3 text-left font-semibold text-gray-700">
                   Género
+                </th>
+                <th className="px-4 py-3 text-left font-semibold text-gray-700">
+                  Estado político
                 </th>
                 <th className="px-4 py-3 text-left font-semibold text-gray-700">
                   Teléfono
@@ -719,7 +765,7 @@ export default function VotersTable({
             <tbody>
               {sortedVoters.length === 0 ? (
                 <tr>
-                  <td colSpan="10" className="px-4 py-12 text-center">
+                  <td colSpan={11} className="px-4 py-12 text-center">
                     <div className="flex flex-col items-center justify-center">
                       <svg
                         className="w-12 h-12 text-gray-400 mb-4"
@@ -768,6 +814,9 @@ export default function VotersTable({
                         : voter.gender === "F"
                           ? "Femenino"
                           : "Otro"}
+                    </td>
+                    <td className="px-4 py-3 text-gray-700">
+                      {getPoliticalStatusName(voter)}
                     </td>
                     <td className="px-4 py-3 text-gray-700">
                       {voter.phone || "N/A"}
@@ -874,6 +923,14 @@ export default function VotersTable({
                   <p className="text-gray-500 font-semibold">Identificación</p>
                   <p className="text-gray-900 font-mono">
                     {voter.identification || "N/A"}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-gray-500 font-semibold">
+                    Estado político
+                  </p>
+                  <p className="text-gray-900">
+                    {getPoliticalStatusName(voter)}
                   </p>
                 </div>
                 <div>
