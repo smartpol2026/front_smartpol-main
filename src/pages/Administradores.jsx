@@ -257,7 +257,7 @@ export default function Administradores() {
           placeholder="Buscar por email..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
         />
       </div>
 
@@ -265,7 +265,7 @@ export default function Administradores() {
       {loading ? (
         <div className="flex items-center justify-center min-h-64">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500 mx-auto mb-4"></div>
             <p className="text-gray-600">Cargando administradores...</p>
           </div>
         </div>
@@ -322,7 +322,7 @@ export default function Administradores() {
                         }
                         className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition mr-2 ${
                           can("users:manage") || can("users:update")
-                            ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                            ? "bg-brand-50 text-brand-600 hover:bg-brand-100"
                             : "bg-gray-100 text-gray-400 cursor-not-allowed"
                         }`}
                       >
@@ -389,7 +389,7 @@ export default function Administradores() {
                 {(can("users:manage") || can("users:update")) && (
                   <button
                     onClick={() => handleEdit(admin)}
-                    className="flex items-center gap-2 text-blue-500 hover:text-blue-600 flex-1 justify-center py-2 rounded-lg hover:bg-blue-50 transition"
+                    className="flex items-center gap-2 text-brand-500 hover:text-brand-600 flex-1 justify-center py-2 rounded-lg hover:bg-brand-50 transition"
                   >
                     <PencilSquareIcon className="w-4 h-4" />
                     Editar
@@ -440,7 +440,7 @@ export default function Administradores() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                   required
                   disabled={saving}
                 />
@@ -455,7 +455,7 @@ export default function Administradores() {
                   name="organizationId"
                   value={formData.organizationId}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                   disabled={saving}
                 >
                   <option value="">Sin organización asignada</option>
@@ -481,7 +481,7 @@ export default function Administradores() {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Dejar en blanco para no cambiar"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                   disabled={saving}
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -492,7 +492,7 @@ export default function Administradores() {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 py-2 bg-brand-500 text-white rounded-lg font-medium hover:bg-brand-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={saving}
                 >
                   {saving ? "Guardando..." : "Guardar Cambios"}

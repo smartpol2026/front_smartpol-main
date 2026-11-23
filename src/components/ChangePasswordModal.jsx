@@ -81,7 +81,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+      <div className="bg-white rounded-2xl shadow-card w-full max-w-md mx-4">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-bold text-gray-900">
@@ -108,7 +108,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
               value={formData.newPassword}
               onChange={handleChange}
               placeholder="Ingresa tu nueva contraseña"
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:border-transparent outline-none transition ${
                 errors.newPassword
                   ? "border-red-500 bg-red-50"
                   : "border-gray-300 bg-white"
@@ -132,7 +132,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
               value={formData.confirmPassword}
               onChange={handleChange}
               placeholder="Confirma tu nueva contraseña"
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:border-transparent outline-none transition ${
                 errors.confirmPassword
                   ? "border-red-500 bg-red-50"
                   : "border-gray-300 bg-white"
@@ -147,8 +147,8 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
           </div>
 
           {/* Info Box */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <p className="text-sm text-blue-800">
+          <div className="bg-brand-50 border border-brand-200 rounded-lg p-3">
+            <p className="text-sm text-gray-700">
               ℹ️ Por seguridad, se recomienda usar una contraseña fuerte con
               mayúsculas, minúsculas y números.
             </p>
@@ -167,7 +167,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-2 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Guardando..." : "Cambiar Contraseña"}
             </button>

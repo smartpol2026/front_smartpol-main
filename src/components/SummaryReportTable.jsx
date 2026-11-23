@@ -161,7 +161,7 @@ export default function SummaryReportTable({
   const totalPages = pagination?.pages ?? 1;
 
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
       <div className="p-3 sm:p-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <h2 className="text-base sm:text-lg font-semibold text-gray-800">
           Resultados ({pagination?.total || rows.length})
@@ -178,7 +178,7 @@ export default function SummaryReportTable({
             }
             className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-md transition flex items-center justify-center sm:justify-start gap-2 text-sm sm:text-base ${
               exporting
-                ? "bg-orange-500 text-white cursor-wait opacity-70"
+                ? "bg-brand-500 text-white cursor-wait opacity-70"
                 : "bg-green-600 text-white hover:bg-green-700"
             }`}
           >
@@ -266,7 +266,7 @@ export default function SummaryReportTable({
                   sortedRows.map((row, index) => (
                     <tr
                       key={`${row.id ?? row[nameKey]}-${index}`}
-                      className="border-b border-gray-200 hover:bg-blue-50"
+                      className="border-b border-gray-200 hover:bg-brand-50"
                     >
                       {columns.map((column) => (
                         <td

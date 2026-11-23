@@ -136,7 +136,7 @@ export const VotersByCandidate = ({ data = [] }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg border border-gray-200 p-3 sm:p-6 transition-all duration-300 h-full flex flex-col">
+    <div className="bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-gray-100 p-3 sm:p-6 transition-all duration-300 h-full flex flex-col">
       <div
         style={{ position: "relative", height: "340px" }}
         className="flex-shrink-0"
@@ -173,7 +173,7 @@ export const VotersByCandidate = ({ data = [] }) => {
                     <span className="text-gray-600 font-medium text-right min-w-[45px]">
                       {item.voterCount.toLocaleString()}
                     </span>
-                    <span className="text-blue-600 font-semibold min-w-[50px] text-right">
+                    <span className="text-brand-600 font-semibold min-w-[50px] text-right">
                       {percentage}%
                     </span>
                   </div>

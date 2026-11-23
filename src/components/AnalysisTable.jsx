@@ -146,7 +146,7 @@ export default function AnalysisTable({ filters }) {
               !loading && tableData.length > 0 && !isExporting
                 ? "bg-green-600 text-white hover:bg-green-700"
                 : isExporting
-                  ? "bg-orange-500 text-white cursor-wait opacity-70"
+                  ? "bg-brand-500 text-white cursor-wait opacity-70"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
           >
@@ -275,7 +275,7 @@ export default function AnalysisTable({ filters }) {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-center">
-                        <span className="inline-block bg-blue-50 text-blue-700 px-2 py-1 rounded-full font-bold text-xs border border-blue-200">
+                        <span className="inline-block bg-brand-50 text-gray-700 px-2 py-1 rounded-full font-bold text-xs border border-brand-200">
                           {puesto.porcentajeGeneral}%
                         </span>
                       </td>
@@ -315,7 +315,7 @@ export default function AnalysisTable({ filters }) {
                             </span>
                           </td>
                           <td className="px-4 py-3 text-center">
-                            <span className="inline-block bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold border border-blue-200">
+                            <span className="inline-block bg-brand-50 text-gray-700 px-2 py-1 rounded-full text-xs font-semibold border border-brand-200">
                               {mesa.porcentajeRegistradoVsVotado}
                             </span>
                           </td>

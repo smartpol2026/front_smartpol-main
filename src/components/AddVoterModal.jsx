@@ -592,7 +592,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
       <div className="bg-white w-full max-w-5xl max-h-[95vh] rounded-2xl shadow-xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b">
-          <h3 className="text-xl font-bold text-orange-500">
+          <h3 className="text-xl font-bold text-brand-500">
             {voter ? "Editar Votante" : "Agregar Votante"}
           </h3>
           <button onClick={onClose}>
@@ -634,7 +634,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
                   value={form[name]}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-orange-400"
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-brand-400"
                 />
               </div>
             ))}
@@ -778,7 +778,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
                           type="checkbox"
                           checked={form.candidateIds.includes(c.id)}
                           onChange={() => handleCandidateChange(c.id)}
-                          className="w-4 h-4 rounded border-gray-300 text-orange-500 focus:ring-orange-400"
+                          className="w-4 h-4 rounded border-gray-300 text-brand-500 focus:ring-brand-400"
                         />
                         <span className="text-sm text-gray-700">
                           {c.name} — {c.party}
@@ -826,7 +826,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
                           type="checkbox"
                           checked={form.candidateIds.includes(c.id)}
                           onChange={() => handleCandidateChange(c.id)}
-                          className="w-4 h-4 rounded border-gray-300 text-orange-500 focus:ring-orange-400"
+                          className="w-4 h-4 rounded border-gray-300 text-brand-500 focus:ring-brand-400"
                         />
                         <span className="text-sm text-gray-700">
                           {c.name} — {c.party}
@@ -871,7 +871,7 @@ export default function AddVoterModal({ onClose, onVoterAdded, voter }) {
                 (voter && !can("voters:update")) ||
                 (!voter && !can("voters:create"))
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-orange-500 text-white hover:bg-orange-600"
+                  : "bg-brand-500 text-white hover:bg-brand-600"
               }`}
             >
               {loading ? "Guardando..." : "Guardar"}
@@ -893,7 +893,7 @@ function Select({ label, children, required, disabled, ...props }) {
       <select
         {...props}
         disabled={disabled}
-        className={`mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-orange-400 ${
+        className={`mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-brand-400 ${
           disabled ? "bg-gray-100 cursor-not-allowed text-gray-500" : ""
         }`}
       >

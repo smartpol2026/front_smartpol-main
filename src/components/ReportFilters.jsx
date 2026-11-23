@@ -182,15 +182,15 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
 
   if (loading) {
     return (
-      <div className="bg-white p-3 sm:p-4 rounded-lg shadow text-sm sm:text-base">
-        <p className="text-gray-500">Cargando filtros...</p>
+      <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-card border border-gray-100 text-sm sm:text-base">
+        <p className="text-ink-muted">Cargando filtros...</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-lg shadow mb-4 sm:mb-6">
-      <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">
+    <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-2xl shadow-card border border-gray-100 mb-4 sm:mb-6">
+      <h2 className="text-base sm:text-lg font-semibold text-ink mb-3 sm:mb-4">
         Filtros Dinámicos
       </h2>
 
@@ -205,7 +205,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
             onChange={(e) =>
               handleFilterChange("politicalStatusId", e.target.value)
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="app-input"
           >
             <option value="">Todos los estados políticos</option>
             {politicalStatuses.map((status) => (
@@ -224,7 +224,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
           <select
             value={filters.gender}
             onChange={(e) => handleFilterChange("gender", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="app-input"
           >
             <option value="">Todos</option>
             <option value="M">Masculino</option>
@@ -246,7 +246,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
           <select
             value={filters.leaderId}
             onChange={(e) => handleFilterChange("leaderId", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="app-input"
           >
             <option value="">Todos los líderes</option>
             {leaders.map((leader) => (
@@ -267,7 +267,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
             onChange={(e) =>
               handleFilterChange("corporationId", e.target.value)
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="app-input"
           >
             <option value="">Todas las corporaciones</option>
             {corporations.map((corp) => (
@@ -286,7 +286,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
           <select
             value={filters.candidateId}
             onChange={(e) => handleFilterChange("candidateId", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="app-input"
           >
             <option value="">Todos los candidatos</option>
             {filteredCandidates.map((candidate) => {
@@ -313,7 +313,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
           <select
             value={filters.departmentId}
             onChange={(e) => handleFilterChange("departmentId", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="app-input"
           >
             <option value="">Todos los departamentos</option>
             {departments.map((dept) => (
@@ -335,7 +335,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
               handleFilterChange("municipalityId", e.target.value)
             }
             disabled={!filters.departmentId || municipalities.length === 0}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-400"
+            className="app-input disabled:bg-gray-100 disabled:text-gray-400"
           >
             <option value="">Todos los municipios</option>
             {municipalities.map((mun) => (
@@ -362,7 +362,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
               handleFilterChange("votingBoothId", e.target.value)
             }
             disabled={!filters.municipalityId || filteredBooths.length === 0}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-400"
+            className="app-input disabled:bg-gray-100 disabled:text-gray-400"
           >
             <option value="">Todos los puestos</option>
             {filteredBooths.map((booth) => (
@@ -389,7 +389,7 @@ export default function ReportFilters({ onFiltersChange, aggregations = {}, curr
               handleFilterChange("votingTableId", e.target.value)
             }
             disabled={!filters.votingBoothId || mesas.length === 0}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-400"
+            className="app-input disabled:bg-gray-100 disabled:text-gray-400"
           >
             <option value="">Todas las mesas</option>
             {mesas.map((mesa) => (

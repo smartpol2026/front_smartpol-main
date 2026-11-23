@@ -156,7 +156,7 @@ export default function Organizaciones() {
           }
           className={`flex items-center gap-2 px-6 py-3 rounded-xl shadow-md transition ${
             can("organizations:manage") || can("organizations:create")
-              ? "bg-orange-500 text-white shadow-orange-500/20 hover:bg-orange-600"
+              ? "bg-brand-500 text-white shadow-brand-500/20 hover:bg-brand-600"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
           }`}
         >
@@ -172,7 +172,7 @@ export default function Organizaciones() {
           placeholder="Buscar por nombre o descripción..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
         />
       </div>
 
@@ -202,7 +202,7 @@ export default function Organizaciones() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   required
                 />
               </div>
@@ -216,7 +216,7 @@ export default function Organizaciones() {
                   value={formData.description}
                   onChange={handleInputChange}
                   rows="3"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                 />
               </div>
 
@@ -230,7 +230,7 @@ export default function Organizaciones() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+                  className="flex-1 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600"
                 >
                   Guardar
                 </button>
@@ -298,7 +298,7 @@ export default function Organizaciones() {
                         can("organizations:update")) && (
                         <button
                           onClick={() => handleEdit(organization)}
-                          className="text-gray-400 hover:text-orange-500 transition"
+                          className="text-gray-400 hover:text-brand-500 transition"
                           title="Editar"
                         >
                           <PencilSquareIcon className="w-5 h-5" />
@@ -372,7 +372,7 @@ export default function Organizaciones() {
                 {can("organizations:update") && (
                   <button
                     onClick={() => handleEdit(organization)}
-                    className="flex items-center gap-2 text-orange-500 hover:text-orange-600 flex-1 justify-center py-2 rounded-lg hover:bg-orange-50"
+                    className="flex items-center gap-2 text-brand-500 hover:text-brand-600 flex-1 justify-center py-2 rounded-lg hover:bg-brand-50"
                   >
                     <PencilSquareIcon className="w-4 h-4" />
                     Editar

@@ -17,7 +17,7 @@ export default function VotingStatsPanel({ refreshTrigger }) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-2xl shadow-card border border-gray-100 p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">
           Día D - Panel de Votación
@@ -30,7 +30,7 @@ export default function VotingStatsPanel({ refreshTrigger }) {
             title="Actualizar ahora"
           >
             <ArrowPathIcon
-              className={`w-5 h-5 text-blue-600 ${isRefreshing ? "animate-spin" : ""}`}
+              className={`w-5 h-5 text-brand-600 ${isRefreshing ? "animate-spin" : ""}`}
             />
           </button>
           {lastUpdate && (

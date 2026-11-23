@@ -391,7 +391,7 @@ export default function Personas() {
           placeholder="Buscar por nombre o identificación..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="app-input w-full sm:w-96 shadow-soft"
         />
       </div>
 
@@ -425,10 +425,10 @@ export default function Personas() {
 
       {/* ===== DESKTOP ===== */}
       {!loading && !error && filteredVoters.length > 0 && (
-        <div className="hidden md:block bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+        <div className="hidden md:block bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full table-auto text-sm">
-              <thead className="bg-gray-100 border-b">
+              <thead className="bg-[#F7F9FC] border-b border-gray-100">
                 <tr>
                   {[
                     "Nombre",
@@ -492,7 +492,7 @@ export default function Personas() {
                           {voterCandidates[v.id].map((candidateName, idx) => (
                             <span
                               key={idx}
-                              className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 whitespace-nowrap w-fit"
+                              className="px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-gray-700 whitespace-nowrap w-fit"
                             >
                               {candidateName}
                             </span>
@@ -507,7 +507,7 @@ export default function Personas() {
                       {(can("voters:manage") || can("voters:update")) && (
                         <button
                           onClick={() => handleEdit(v)}
-                          className="text-gray-400 hover:text-orange-500 transition"
+                          className="text-gray-400 hover:text-brand-500 transition"
                         >
                           <PencilSquareIcon className="w-5 h-5" />
                         </button>
@@ -592,7 +592,7 @@ export default function Personas() {
                       {voterCandidates[v.id].map((candidateName, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700 font-semibold w-fit"
+                          className="px-2 py-1 rounded-full text-xs bg-brand-50 text-gray-700 font-semibold w-fit"
                         >
                           {candidateName}
                         </span>
@@ -608,7 +608,7 @@ export default function Personas() {
                 {can("voters:update") && (
                   <button
                     onClick={() => handleEdit(v)}
-                    className="text-gray-400 hover:text-orange-500 transition"
+                    className="text-gray-400 hover:text-brand-500 transition"
                   >
                     <PencilSquareIcon className="w-5 h-5" />
                   </button>

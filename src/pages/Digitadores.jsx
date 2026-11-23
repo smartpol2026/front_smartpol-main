@@ -215,7 +215,7 @@ export default function Digitadores() {
           placeholder="Buscar por email..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
         />
       </div>
 
@@ -223,7 +223,7 @@ export default function Digitadores() {
       {loading ? (
         <div className="flex items-center justify-center min-h-64">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500 mx-auto mb-4"></div>
             <p className="text-gray-600">Cargando digitadores...</p>
           </div>
         </div>
@@ -275,7 +275,7 @@ export default function Digitadores() {
                         }
                         className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition mr-2 ${
                           can("users:manage") || can("users:update")
-                            ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                            ? "bg-brand-50 text-brand-600 hover:bg-brand-100"
                             : "bg-gray-100 text-gray-400 cursor-not-allowed"
                         }`}
                       >
@@ -346,7 +346,7 @@ export default function Digitadores() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                   required
                 />
               </div>
@@ -361,7 +361,7 @@ export default function Digitadores() {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Dejar en blanco para no cambiar"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Mínimo 6 caracteres si se proporciona
@@ -371,7 +371,7 @@ export default function Digitadores() {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 transition"
+                  className="flex-1 px-4 py-2 bg-brand-500 text-white rounded-lg font-medium hover:bg-brand-600 transition"
                 >
                   Guardar Cambios
                 </button>

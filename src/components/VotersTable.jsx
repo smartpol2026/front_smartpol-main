@@ -646,14 +646,14 @@ export default function VotersTable({
 
   if (loading) {
     return (
-      <div className="bg-white p-6 rounded-lg shadow text-center">
+      <div className="bg-white p-6 rounded-2xl shadow-card border border-gray-100 text-center">
         <p className="text-gray-500">Cargando votantes...</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
       <div className="p-3 sm:p-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
         <h2 className="text-base sm:text-lg font-semibold text-gray-800">
           Votantes Registrados ({pagination?.total || enrichedVoters.length})
@@ -674,7 +674,7 @@ export default function VotersTable({
                 ? "bg-green-600 text-white hover:bg-green-700"
                 : !isExporting
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-orange-500 text-white cursor-wait opacity-70"
+                  : "bg-brand-500 text-white cursor-wait opacity-70"
             }`}
           >
             {isExporting ? (
@@ -716,10 +716,10 @@ export default function VotersTable({
       </div>
 
       {/* Vista Desktop - Tabla */}
-      <div className="hidden md:block bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+      <div className="hidden md:block bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-gray-100 border-b border-gray-200">
+            <thead className="bg-[#F7F9FC] border-b border-gray-100">
               <tr>
                 <th
                   className="px-4 py-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-gray-200"
@@ -797,7 +797,7 @@ export default function VotersTable({
                     key={voter.id}
                     className={`border-b border-gray-200 ${
                       idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                    } hover:bg-blue-50 transition`}
+                    } hover:bg-brand-50 transition`}
                   >
                     <td className="px-4 py-3 text-gray-700">
                       {voter.firstName || "N/A"}
@@ -909,7 +909,7 @@ export default function VotersTable({
                     {voter.firstName || "N/A"} {voter.lastName || "N/A"}
                   </h3>
                 </div>
-                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded whitespace-nowrap">
+                <span className="text-xs bg-brand-50 text-gray-700 px-2 py-1 rounded whitespace-nowrap">
                   {voter.gender === "M"
                     ? "Masculino"
                     : voter.gender === "F"
@@ -990,7 +990,7 @@ export default function VotersTable({
                     {voter.candidates.map((candidate) => (
                       <span
                         key={candidate.id}
-                        className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded"
+                        className="text-xs bg-brand-50 text-gray-700 px-2 py-1 rounded"
                       >
                         {candidate.name || "Sin nombre"}
                       </span>

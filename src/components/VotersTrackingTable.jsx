@@ -310,7 +310,7 @@ export default function VotersTrackingTable({
     return (
       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 flex items-center justify-center min-h-56 border border-blue-100">
         <div className="text-center">
-          <ArrowPathIcon className="w-10 h-10 text-blue-600 animate-spin mx-auto mb-3" />
+          <ArrowPathIcon className="w-10 h-10 text-brand-600 animate-spin mx-auto mb-3" />
           <p className="text-gray-700 font-medium">
             Cargando información de seguimiento...
           </p>
@@ -326,7 +326,7 @@ export default function VotersTrackingTable({
         {/* Expected Votes Counter */}
         <button
           onClick={() => handleFilterClick("expected")}
-          className={`metric-card metric-card-entrance metric-card-gradient rounded-lg shadow-sm p-6 border-2 transition-all cursor-pointer ${
+          className={`metric-card metric-card-entrance metric-card-gradient rounded-2xl shadow-card p-6 border-2 transition-all cursor-pointer ${
             activeFilter === "expected"
               ? "bg-green-50 border-green-400"
               : "bg-white border-gray-200 hover:border-green-300"
@@ -350,7 +350,7 @@ export default function VotersTrackingTable({
         {/* Registered Votes Counter */}
         <button
           onClick={() => handleFilterClick("registered")}
-          className={`metric-card metric-card-entrance metric-card-gradient rounded-lg shadow-sm p-6 border-2 transition-all cursor-pointer ${
+          className={`metric-card metric-card-entrance metric-card-gradient rounded-2xl shadow-card p-6 border-2 transition-all cursor-pointer ${
             activeFilter === "registered"
               ? "bg-green-50 border-green-400"
               : "bg-white border-gray-200 hover:border-green-300"
@@ -377,44 +377,44 @@ export default function VotersTrackingTable({
         {/* Pending Votes Counter */}
         <button
           onClick={() => handleFilterClick("pending")}
-          className={`metric-card metric-card-entrance metric-card-gradient rounded-lg shadow-sm p-6 border-2 transition-all cursor-pointer ${
+          className={`metric-card metric-card-entrance metric-card-gradient rounded-2xl shadow-card p-6 border-2 transition-all cursor-pointer ${
             activeFilter === "pending"
-              ? "bg-orange-50 border-orange-400"
+              ? "bg-brand-50 border-orange-400"
               : "bg-white border-gray-200 hover:border-orange-300"
           }`}
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <p className="text-3xl sm:text-4xl font-bold text-orange-500">
+              <p className="text-3xl sm:text-4xl font-bold text-brand-500">
                 {stats.pending.toLocaleString()}
               </p>
               <p className="text-gray-600 text-xs sm:text-sm font-medium mt-2">
                 Votos Pendientes
               </p>
-              <p className="text-orange-500 text-xs font-semibold mt-1">
+              <p className="text-brand-500 text-xs font-semibold mt-1">
                 {pendingPercentage}%
               </p>
             </div>
-            <div className="bg-orange-100 p-3 rounded-lg">
-              <ClockIcon className="w-6 h-6 text-orange-500" />
+            <div className="bg-brand-100 p-3 rounded-lg">
+              <ClockIcon className="w-6 h-6 text-brand-500" />
             </div>
           </div>
         </button>
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-4 sm:p-5">
+      <div className="bg-white rounded-2xl shadow-card border border-gray-100 p-4 sm:p-5">
         <input
           type="text"
           placeholder="Buscar por cédula..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30"
         />
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
         {/* Header con título y botón de exportación */}
         <div className="px-6 py-4 bg-white border-b border-gray-200 flex justify-between items-center">
           <div>
@@ -446,7 +446,7 @@ export default function VotersTrackingTable({
                 !loadingVoters && filteredVoters.length > 0 && !isExporting
                   ? "bg-green-600 text-white hover:bg-green-700"
                   : isExporting
-                    ? "bg-orange-500 text-white cursor-wait opacity-70"
+                    ? "bg-brand-500 text-white cursor-wait opacity-70"
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >
@@ -483,7 +483,7 @@ export default function VotersTrackingTable({
         {loadingVoters && (
           <div className="flex items-center justify-center min-h-96">
             <div className="text-center">
-              <ArrowPathIcon className="w-10 h-10 text-blue-600 animate-spin mx-auto mb-3" />
+              <ArrowPathIcon className="w-10 h-10 text-brand-600 animate-spin mx-auto mb-3" />
               <p className="text-gray-700 font-medium">Cargando votantes...</p>
             </div>
           </div>

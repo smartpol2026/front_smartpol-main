@@ -3,34 +3,37 @@ import { getUserPermissions } from "../api/permissions";
 
 const UserContext = createContext();
 
-// Sistema de eventos personalizado para cambios en localStorage
 const storageChangeEvent = new EventTarget();
 
-// Función para notificar cambios en localStorage
 export function notifyStorageChange() {
   storageChangeEvent.dispatchEvent(new Event("change"));
 }
 
-/**
- * Proveedor de contexto de usuario
- * Gestiona: usuario, rol, permisos y estado de carga
- */
+function parseJsonArray(value) {
+  try {
+    const parsed = JSON.parse(value || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [permissions, setPermissions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Cargar datos del usuario al montar el componente
   useEffect(() => {
     const loadUserData = async () => {
       try {
-        // Leer INMEDIATAMENTE del localStorage, SIN reintentos, SIN delays
         const token = localStorage.getItem("access_token");
         const userId = localStorage.getItem("user_id");
         const email = localStorage.getItem("user_email");
         const roleId = localStorage.getItem("roleId");
         const organizationId = localStorage.getItem("organizationId");
+        const campaignIds = parseJsonArray(localStorage.getItem("campaignIds"));
+        const campaigns = parseJsonArray(localStorage.getItem("campaigns"));
 
         if (token && userId && email) {
           const userData = {
@@ -38,10 +41,11 @@ export function UserProvider({ children }) {
             email,
             roleId: roleId ? parseInt(roleId) : null,
             organizationId: organizationId ? parseInt(organizationId) : null,
+            campaignIds,
+            campaigns,
           };
           setUser(userData);
 
-          // Cargar permisos del usuario ASINCRONAMENTE en el background
           if (roleId) {
             try {
               const userPerms = await getUserPermissions();
@@ -50,6 +54,9 @@ export function UserProvider({ children }) {
               console.error("Error loading permissions:", err);
             }
           }
+        } else {
+          setUser(null);
+          setPermissions([]);
         }
 
         setError(null);
@@ -63,15 +70,11 @@ export function UserProvider({ children }) {
 
     loadUserData();
 
-    // Escuchar cambios en localStorage INCLUYENDO la misma pestaña
     const handleStorageChange = () => {
       loadUserData();
     };
 
-    // Escuchar evento personalizado (cambios en ESTA pestaña)
     storageChangeEvent.addEventListener("change", handleStorageChange);
-
-    // También escuchar storage event (cambios en OTRAS pestañas)
     window.addEventListener("storage", handleStorageChange);
 
     return () => {
@@ -80,9 +83,6 @@ export function UserProvider({ children }) {
     };
   }, []);
 
-  /**
-   * Función para refrescar los permisos (útil después de cambios)
-   */
   const refreshPermissions = async () => {
     try {
       const userPerms = await getUserPermissions();
@@ -92,15 +92,16 @@ export function UserProvider({ children }) {
     }
   };
 
-  /**
-   * Función para cerrar sesión
-   */
   const logout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("user_id");
     localStorage.removeItem("user_email");
     localStorage.removeItem("roleId");
+    localStorage.removeItem("organizationId");
+    localStorage.removeItem("organizationName");
+    localStorage.removeItem("campaignIds");
+    localStorage.removeItem("campaigns");
     setUser(null);
     setPermissions([]);
   };
@@ -117,9 +118,6 @@ export function UserProvider({ children }) {
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
-/**
- * Hook para usar el contexto de usuario
- */
 export function useUser() {
   const context = useContext(UserContext);
   if (!context) {

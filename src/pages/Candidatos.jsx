@@ -354,7 +354,7 @@ export default function Candidatos() {
           placeholder="Buscar por nombre, partido o número..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
         />
       </div>
 
@@ -384,7 +384,7 @@ export default function Candidatos() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   required
                   disabled={saving}
                 />
@@ -399,7 +399,7 @@ export default function Candidatos() {
                   name="party"
                   value={formData.party}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   disabled={saving}
                 />
               </div>
@@ -435,7 +435,7 @@ export default function Candidatos() {
                   name="number"
                   value={formData.number}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   disabled={saving}
                 />
               </div>
@@ -449,7 +449,7 @@ export default function Candidatos() {
                   name="organizationId"
                   value={formData.organizationId}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   disabled={currentUser?.roleId === 2 || saving}
                 >
                   <option value="">Seleccionar organización</option>
@@ -484,7 +484,7 @@ export default function Candidatos() {
                   name="campaignId"
                   value={formData.campaignId}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   disabled={
                     !formData.organizationId || loadingCampaigns || saving
                   }
@@ -520,7 +520,7 @@ export default function Candidatos() {
                   value={formData.password || ""}
                   onChange={handleInputChange}
                   placeholder="Dejar en blanco para no cambiar"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   disabled={saving}
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -539,7 +539,7 @@ export default function Candidatos() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={saving}
                 >
                   {saving ? "Guardando..." : "Guardar"}
@@ -619,7 +619,7 @@ export default function Candidatos() {
                         can("candidates:update")) && (
                         <button
                           onClick={() => handleEdit(candidate)}
-                          className="text-gray-400 hover:text-orange-500 transition"
+                          className="text-gray-400 hover:text-brand-500 transition"
                           title="Editar"
                         >
                           <PencilSquareIcon className="w-5 h-5" />
@@ -701,7 +701,7 @@ export default function Candidatos() {
                 {(can("candidates:manage") || can("candidates:update")) && (
                   <button
                     onClick={() => handleEdit(candidate)}
-                    className="flex items-center gap-2 text-orange-500 hover:text-orange-600 flex-1 justify-center py-2 rounded-lg hover:bg-orange-50 transition"
+                    className="flex items-center gap-2 text-brand-500 hover:text-brand-600 flex-1 justify-center py-2 rounded-lg hover:bg-brand-50 transition"
                   >
                     <PencilSquareIcon className="w-4 h-4" />
                     Editar

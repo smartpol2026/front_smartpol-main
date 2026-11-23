@@ -8,8 +8,8 @@ export default function NotFound() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         {/* Icono */}
-        <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-          <ExclamationTriangleIcon className="h-8 w-8 text-blue-600" />
+        <div className="mx-auto w-16 h-16 bg-brand-50 rounded-full flex items-center justify-center mb-6">
+          <ExclamationTriangleIcon className="h-8 w-8 text-brand-600" />
         </div>
 
         {/* Contenido */}
@@ -39,7 +39,7 @@ export default function NotFound() {
         <div className="flex flex-col gap-3">
           <button
             onClick={() => navigate("/app/dashboard")}
-            className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="w-full px-6 py-3 bg-brand-500 text-white font-medium rounded-lg hover:bg-brand-600 transition-colors"
           >
             Ir al Dashboard
           </button>
