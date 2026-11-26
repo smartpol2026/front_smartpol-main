@@ -77,8 +77,8 @@
 }
 
 .metric-card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(27, 37, 89, 0.10);
+  transform: translateY(-3px);
 }
 
 /* Animación de rotación para el indicador de sincronización */
@@ -94,12 +94,12 @@
 
 /* Gradient sutil en hover */
 .metric-card-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
-  transition: background 0.3s ease;
+  background: #ffffff;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .metric-card-gradient:hover {
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  background: #ffffff;
 }
 
 /* Pulse para el punto de sincronización */

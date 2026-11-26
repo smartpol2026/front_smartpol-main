@@ -131,7 +131,7 @@ export default function CreateEspeciales() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="usuario@example.com"
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 ${
+                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500 ${
                   formErrors.email ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -155,7 +155,7 @@ export default function CreateEspeciales() {
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="Mínimo 8 caracteres"
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 ${
+                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500 ${
                   formErrors.password ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -181,7 +181,7 @@ export default function CreateEspeciales() {
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 placeholder="Repite la contraseña"
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 ${
+                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500 ${
                   formErrors.confirmPassword
                     ? "border-red-500"
                     : "border-gray-300"
@@ -207,7 +207,7 @@ export default function CreateEspeciales() {
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2 bg-orange-500 text-white rounded-md shadow-sm text-sm font-medium hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 bg-brand-500 text-white rounded-md shadow-sm text-sm font-medium hover:bg-brand-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Creando..." : "Crear Usuario Especial"}
             </button>

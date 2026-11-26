@@ -89,7 +89,7 @@ export const GraficDoughnut = ({ totalPendientes, totalRegisteredVotes }) => {
   }, [totalRegisteredVotes, totalPendientes]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg border border-gray-200 p-6 transition-all duration-300">
+    <div className="bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-gray-100 p-6 transition-all duration-300">
       <div style={{ position: "relative", height: "340px" }}>
         <Doughnut data={data} options={options} />
       </div>

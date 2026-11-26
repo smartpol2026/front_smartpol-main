@@ -245,7 +245,7 @@ export default function CreateCampanas() {
           className="bg-white rounded-xl shadow-md border border-gray-200 p-6 sm:p-8"
         >
           {isOrgAdmin && (
-            <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="mb-6 p-4 bg-brand-50 border border-brand-200 rounded-lg">
               <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Organización Asignada
               </label>
@@ -271,7 +271,7 @@ export default function CreateCampanas() {
                 name="organizationId"
                 value={formData.organizationId}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
                 required
               >
                 <option value="">Selecciona una organización</option>
@@ -306,7 +306,7 @@ export default function CreateCampanas() {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="Ej: Campaña Electoral 2024"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
               required
             />
           </div>
@@ -325,7 +325,7 @@ export default function CreateCampanas() {
               onChange={handleInputChange}
               placeholder="Describe los detalles de esta campaña..."
               rows="4"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition resize-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition resize-none"
             />
           </div>
 
@@ -343,7 +343,7 @@ export default function CreateCampanas() {
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
                 required
               />
             </div>
@@ -361,7 +361,7 @@ export default function CreateCampanas() {
                 name="endDate"
                 value={formData.endDate}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
                 required
               />
             </div>
@@ -374,7 +374,7 @@ export default function CreateCampanas() {
               name="status"
               checked={formData.status}
               onChange={handleInputChange}
-              className="w-4 h-4 text-orange-500 rounded focus:ring-orange-500"
+              className="w-4 h-4 text-brand-500 rounded focus:ring-brand-500/30"
             />
             <label htmlFor="status" className="ml-2 text-sm text-gray-700">
               Campaña activa
@@ -395,7 +395,7 @@ export default function CreateCampanas() {
               className={`flex-1 px-6 py-3 font-semibold rounded-lg text-white transition ${
                 loading || (isSuperAdmin && organizations.length === 0)
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-orange-500 hover:bg-orange-600 shadow-orange-500/20 shadow-md"
+                  : "bg-brand-500 hover:bg-brand-600 shadow-brand-500/20 shadow-md"
               }`}
             >
               {loading ? "Creando..." : "Crear Campaña"}

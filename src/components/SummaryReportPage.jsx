@@ -111,7 +111,7 @@ export default function SummaryReportPage({
             {error}
           </div>
         )}
-        <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-lg shadow">
+        <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-2xl shadow-card border border-gray-100">
           <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-4">Filtros</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {fields.map((field) => {
@@ -119,7 +119,7 @@ export default function SummaryReportPage({
                 id: `${id}-${field.key}`,
                 value: filters[field.key],
                 onChange: (event) => handleFilterChange(field, event.target.value),
-                className: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
+                className: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/30",
               };
               const items = field.getOptions
                 ? field.getOptions(options, filters)

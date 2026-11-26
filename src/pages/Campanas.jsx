@@ -224,7 +224,7 @@ export default function Campanas() {
           placeholder="Buscar por nombre o descripción..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
         />
       </div>
 
@@ -253,7 +253,7 @@ export default function Campanas() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   required
                 />
               </div>
@@ -267,7 +267,7 @@ export default function Campanas() {
                   value={formData.description}
                   onChange={handleInputChange}
                   rows="2"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none resize-none"
                 />
               </div>
 
@@ -280,7 +280,7 @@ export default function Campanas() {
                   name="startDate"
                   value={formData.startDate}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   required
                 />
               </div>
@@ -294,7 +294,7 @@ export default function Campanas() {
                   name="endDate"
                   value={formData.endDate}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   required
                 />
               </div>
@@ -306,7 +306,7 @@ export default function Campanas() {
                   name="status"
                   checked={formData.status}
                   onChange={handleInputChange}
-                  className="w-4 h-4 text-orange-500 rounded focus:ring-orange-500"
+                  className="w-4 h-4 text-brand-500 rounded focus:ring-brand-500/30"
                 />
                 <label htmlFor="status" className="ml-2 text-sm text-gray-700">
                   Campaña activa
@@ -323,7 +323,7 @@ export default function Campanas() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+                  className="flex-1 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition"
                 >
                   Guardar
                 </button>
@@ -419,7 +419,7 @@ export default function Campanas() {
                       {(can("campaigns:manage") || can("campaigns:update")) && (
                         <button
                           onClick={() => handleEdit(campaign)}
-                          className="text-gray-400 hover:text-orange-500 transition"
+                          className="text-gray-400 hover:text-brand-500 transition"
                           title="Editar"
                         >
                           <PencilSquareIcon className="w-5 h-5" />
@@ -505,7 +505,7 @@ export default function Campanas() {
                 {can("campaigns:update") && (
                   <button
                     onClick={() => handleEdit(campaign)}
-                    className="flex items-center gap-2 text-orange-500 hover:text-orange-600 flex-1 justify-center py-2 rounded-lg hover:bg-orange-50 transition"
+                    className="flex items-center gap-2 text-brand-500 hover:text-brand-600 flex-1 justify-center py-2 rounded-lg hover:bg-brand-50 transition"
                   >
                     <PencilSquareIcon className="w-4 h-4" />
                     Editar

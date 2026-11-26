@@ -211,8 +211,8 @@ export default function PermissionsGrid({
   };
 
   return (
-    <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl shadow-lg overflow-hidden">
-      <div className="px-8 py-6 border-b-2 border-orange-200 bg-gradient-to-r from-orange-600 to-amber-600">
+    <div className="bg-gradient-to-br from-brand-50 to-amber-50 rounded-xl shadow-lg overflow-hidden">
+      <div className="px-8 py-6 border-b-2 border-brand-200 bg-gradient-to-r from-orange-600 to-amber-600">
         <h3 className="text-xl font-bold text-white flex items-center gap-2">
           <ShieldCheckIcon className="h-6 w-6" />
           Permisos de {type === "role" ? "Rol" : "Usuario"}: {targetName}
@@ -239,11 +239,11 @@ export default function PermissionsGrid({
             return (
               <div
                 key={resource}
-                className="border border-orange-200 rounded-xl p-6 bg-gradient-to-br from-white to-orange-50 shadow-sm hover:shadow-md transition-shadow"
+                className="border border-brand-200 rounded-xl p-6 bg-gradient-to-br from-white to-brand-50 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center justify-between mb-6">
                   <h4 className="text-lg font-bold text-gray-900 flex items-center gap-2 capitalize">
-                    <ShieldCheckIcon className="h-6 w-6 text-orange-600" />
+                    <ShieldCheckIcon className="h-6 w-6 text-brand-600" />
                     {resource}
                   </h4>
                   {crudPerms.length > 0 && (
@@ -254,7 +254,7 @@ export default function PermissionsGrid({
                       disabled={loading || manageBtnLoading}
                       className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
                         allCrudActive
-                          ? "bg-orange-600 text-white hover:bg-orange-700 shadow-md"
+                          ? "bg-brand-600 text-white hover:bg-brand-700 shadow-md"
                           : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                       } ${
                         (loading || manageBtnLoading) &&
@@ -295,11 +295,11 @@ export default function PermissionsGrid({
                       if (type === "role") {
                         // Para roles: solo dos estados - asignado o no asignado
                         if (isAssigned) {
-                          borderColor = "border-orange-600 bg-orange-100";
-                          iconColor = "text-orange-700";
+                          borderColor = "border-orange-600 bg-brand-100";
+                          iconColor = "text-brand-700";
                           label = "Asignado";
                           badgeColor =
-                            "bg-orange-200 text-orange-900 font-bold";
+                            "bg-brand-200 text-orange-900 font-bold";
                         }
                       } else {
                         // Para usuarios: cuatro estados
@@ -310,11 +310,11 @@ export default function PermissionsGrid({
                           label = "Revocado del rol";
                           badgeColor = "bg-red-100 text-red-700";
                         } else if (isFromRole) {
-                          borderColor = "border-orange-600 bg-orange-100";
-                          iconColor = "text-orange-700";
+                          borderColor = "border-orange-600 bg-brand-100";
+                          iconColor = "text-brand-700";
                           label = "Heredado del rol";
                           badgeColor =
-                            "bg-orange-200 text-orange-900 font-bold";
+                            "bg-brand-200 text-orange-900 font-bold";
                         } else if (isCustom) {
                           borderColor = "border-purple-600 bg-purple-100";
                           iconColor = "text-purple-700";

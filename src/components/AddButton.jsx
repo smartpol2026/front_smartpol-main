@@ -11,9 +11,9 @@ export default function AddButton({
       onClick={onClick}
       disabled={disabled}
       title={title}
-      className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl shadow-md transition whitespace-nowrap lg:min-w-[260px] ${
+      className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition whitespace-nowrap lg:min-w-[260px] font-semibold ${
         !disabled
-          ? "bg-orange-500 text-white shadow-orange-500/20 hover:bg-orange-600"
+          ? "bg-brand-500 text-white shadow-md shadow-brand-500/25 hover:bg-brand-600"
           : "bg-gray-300 text-gray-500 cursor-not-allowed"
       }`}
     >

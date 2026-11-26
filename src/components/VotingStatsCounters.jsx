@@ -115,7 +115,7 @@ export default function VotingStatsCounters({
     return (
       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 flex items-center justify-center min-h-56 border border-blue-100">
         <div className="text-center">
-          <ArrowPathIcon className="w-10 h-10 text-blue-600 animate-spin mx-auto mb-3" />
+          <ArrowPathIcon className="w-10 h-10 text-brand-600 animate-spin mx-auto mb-3" />
           <p className="text-gray-700 font-medium">
             Cargando estadísticas en vivo...
           </p>
@@ -132,7 +132,7 @@ export default function VotingStatsCounters({
         <button
           onClick={() => onFilterSelect && onFilterSelect("expected")}
           disabled={!onFilterSelect}
-          className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-all disabled:cursor-default"
+          className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-2xl shadow-card p-6 border border-gray-100 hover:shadow-card-hover transition-all disabled:cursor-default"
         >
           <div className="flex items-start justify-between text-left">
             <div className="flex-1">
@@ -164,7 +164,7 @@ export default function VotingStatsCounters({
         <button
           onClick={() => onFilterSelect && onFilterSelect("registered")}
           disabled={!onFilterSelect}
-          className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-all disabled:cursor-default"
+          className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-2xl shadow-card p-6 border border-gray-100 hover:shadow-card-hover transition-all disabled:cursor-default"
         >
           <div className="flex items-start justify-between text-left">
             <div className="flex-1">
@@ -196,12 +196,12 @@ export default function VotingStatsCounters({
         <button
           onClick={() => onFilterSelect && onFilterSelect("pending")}
           disabled={!onFilterSelect}
-          className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-all disabled:cursor-default"
+          className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-2xl shadow-card p-6 border border-gray-100 hover:shadow-card-hover transition-all disabled:cursor-default"
         >
           <div className="flex items-start justify-between text-left">
             <div className="flex-1">
               <p
-                className={`text-3xl sm:text-4xl font-bold ${loading ? "metric-loading" : "number-update"} text-orange-500`}
+                className={`text-3xl sm:text-4xl font-bold ${loading ? "metric-loading" : "number-update"} text-brand-500`}
               >
                 {loading ? (
                   <span className="fade-in-out">...</span>
@@ -213,8 +213,8 @@ export default function VotingStatsCounters({
                 Votos Pendientes
               </p>
             </div>
-            <div className="bg-orange-100 p-3 rounded-lg">
-              <ClockIcon className="w-6 h-6 text-orange-500" />
+            <div className="bg-brand-100 p-3 rounded-lg">
+              <ClockIcon className="w-6 h-6 text-brand-500" />
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-gray-100">
@@ -241,7 +241,7 @@ export default function VotingStatsCounters({
                   </>
                 ) : (
                   <>
-                    <ClockIcon className="w-6 h-6 text-orange-600" />
+                    <ClockIcon className="w-6 h-6 text-brand-600" />
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900">
                       Votantes Pendientes
                     </h3>
@@ -261,7 +261,7 @@ export default function VotingStatsCounters({
               {modalLoading && (
                 <div className="flex justify-center items-center min-h-64">
                   <div className="text-center">
-                    <ArrowPathIcon className="w-10 h-10 text-blue-600 animate-spin mx-auto mb-3" />
+                    <ArrowPathIcon className="w-10 h-10 text-brand-600 animate-spin mx-auto mb-3" />
                     <p className="text-gray-600 font-medium">
                       Cargando votantes...
                     </p>
@@ -286,20 +286,20 @@ export default function VotingStatsCounters({
                       className={`flex items-start gap-4 p-4 sm:p-5 rounded-xl border-2 transition-all ${
                         modalType === "registered"
                           ? "bg-green-50 border-green-200 hover:border-green-400"
-                          : "bg-orange-50 border-orange-200 hover:border-orange-400"
+                          : "bg-brand-50 border-brand-200 hover:border-orange-400"
                       }`}
                     >
                       <div
                         className={`p-2.5 rounded-lg flex-shrink-0 ${
                           modalType === "registered"
                             ? "bg-green-100"
-                            : "bg-orange-100"
+                            : "bg-brand-100"
                         }`}
                       >
                         {modalType === "registered" ? (
                           <CheckCircleIcon className="w-6 h-6 text-green-600" />
                         ) : (
-                          <ClockIcon className="w-6 h-6 text-orange-600" />
+                          <ClockIcon className="w-6 h-6 text-brand-600" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">

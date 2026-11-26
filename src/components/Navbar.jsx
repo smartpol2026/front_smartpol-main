@@ -4,7 +4,7 @@ import { useUser } from "../context/UserContext";
 import { Bars3Icon, KeyIcon } from "@heroicons/react/24/outline";
 import ChangePasswordModal from "./ChangePasswordModal";
 
-export default function Navbar({ onMenuClick, isSidebarOpen }) {
+export default function Navbar({ onMenuClick }) {
   const [open, setOpen] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const dropdownRef = useRef(null);
@@ -39,43 +39,38 @@ export default function Navbar({ onMenuClick, isSidebarOpen }) {
   };
 
   return (
-    <header className="h-16 bg-white border-b border-gray-100 px-4 sm:px-6 flex items-center justify-between relative z-50">
-      {/* Menu toggle - Visible en todas las pantallas */}
+    <header className="h-16 bg-white/90 backdrop-blur-md border-b border-gray-100/80 px-4 sm:px-6 flex items-center justify-between relative z-50 shadow-soft">
       <button
         onClick={onMenuClick}
         type="button"
-        className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+        className="p-2.5 rounded-xl hover:bg-surface-muted text-ink-soft hover:text-ink transition-colors"
         aria-label="Abrir/cerrar menú"
       >
-        <Bars3Icon className="w-6 h-6 text-gray-700" />
+        <Bars3Icon className="w-6 h-6" />
       </button>
 
-      {/* Spacer */}
       <div className="flex-1" />
 
-      {/* User button */}
       <button
         ref={buttonRef}
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 rounded-full
-                   bg-gray-100 hover:bg-gray-200 transition-all
-                   ring-1 ring-gray-200"
+        className="flex items-center gap-2 sm:gap-3 px-2.5 sm:px-3 py-1.5 rounded-full
+                   bg-surface hover:bg-surface-muted transition-all
+                   border border-gray-100"
       >
-        {/* Avatar */}
         <div
-          className="w-8 h-8 rounded-full bg-orange-500 text-white
-                        flex items-center justify-center font-bold text-sm"
+          className="w-8 h-8 rounded-full bg-brand-500 text-white
+                        flex items-center justify-center font-bold text-sm shadow-soft"
         >
           {email?.charAt(0).toUpperCase()}
         </div>
 
-        {/* Email solo en desktop */}
-        <span className="hidden sm:block text-sm font-medium text-gray-700 max-w-[160px] truncate">
+        <span className="hidden sm:block text-sm font-semibold text-ink max-w-[160px] truncate">
           {email}
         </span>
 
         <svg
-          className={`w-4 h-4 text-gray-500 transition-transform ${
+          className={`w-4 h-4 text-ink-muted transition-transform ${
             open ? "rotate-180" : ""
           }`}
           fill="none"
@@ -91,40 +86,36 @@ export default function Navbar({ onMenuClick, isSidebarOpen }) {
         </svg>
       </button>
 
-      {/* Dropdown */}
       {open && (
         <div
           ref={dropdownRef}
           className="absolute right-4 sm:right-6 top-16 w-56 bg-white rounded-2xl
-                     shadow-xl border border-gray-100 z-50 overflow-hidden"
+                     shadow-card border border-gray-100 z-50 overflow-hidden"
         >
-          <div className="px-4 py-3 border-b">
-            <p className="text-xs text-gray-400">Sesión iniciada como</p>
-            <p className="text-sm font-semibold text-gray-800 truncate">
-              {email}
-            </p>
+          <div className="px-4 py-3 border-b border-gray-100 bg-surface/60">
+            <p className="text-xs text-ink-muted">Sesión iniciada como</p>
+            <p className="text-sm font-semibold text-ink truncate">{email}</p>
           </div>
 
           <div className="p-2">
-            {/* Show "Change Password" only for admins (roleId 1 or 2) */}
             {(user?.roleId === 1 || user?.roleId === 2) && (
               <button
                 onClick={handleChangePassword}
                 className="w-full flex items-center justify-center gap-2
-                           px-4 py-2 rounded-xl mb-2
-                           bg-blue-500 text-white text-sm font-medium
-                           hover:bg-blue-600 transition-colors"
+                           px-4 py-2.5 rounded-xl mb-2
+                           bg-surface text-ink text-sm font-semibold
+                           hover:bg-surface-muted transition-colors border border-gray-100"
               >
-                <KeyIcon className="w-4 h-4" />
+                <KeyIcon className="w-4 h-4 text-brand-500" />
                 Cambiar Contraseña
               </button>
             )}
             <button
               onClick={handleLogout}
               className="w-full flex items-center justify-center gap-2
-                         px-4 py-2 rounded-xl
-                         bg-orange-500 text-white text-sm font-medium
-                         hover:bg-orange-600 transition-colors"
+                         px-4 py-2.5 rounded-xl
+                         bg-brand-500 text-white text-sm font-semibold
+                         hover:bg-brand-600 transition-colors shadow-soft"
             >
               Cerrar sesión
             </button>
@@ -132,7 +123,6 @@ export default function Navbar({ onMenuClick, isSidebarOpen }) {
         </div>
       )}
 
-      {/* Change Password Modal */}
       <ChangePasswordModal
         isOpen={showChangePassword}
         onClose={() => setShowChangePassword(false)}

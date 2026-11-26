@@ -312,7 +312,7 @@ export default function Lideres() {
           placeholder="Buscar por nombre, documento o municipio..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
         />
       </div>
 
@@ -340,7 +340,7 @@ export default function Lideres() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                   required
                 />
               </div>
@@ -354,7 +354,7 @@ export default function Lideres() {
                   name="document"
                   value={formData.document}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                 />
               </div>
 
@@ -367,7 +367,7 @@ export default function Lideres() {
                   name="municipality"
                   value={formData.municipality}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                 />
               </div>
 
@@ -380,7 +380,7 @@ export default function Lideres() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                 />
               </div>
 
@@ -392,7 +392,7 @@ export default function Lideres() {
                   name="campaignId"
                   value={formData.campaignId}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                 >
                   <option value="">Sin asignar</option>
                   {campaigns.map((campaign) => (
@@ -413,7 +413,7 @@ export default function Lideres() {
                   value={formData.password || ""}
                   onChange={handleInputChange}
                   placeholder="Dejar en blanco para no cambiar"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Mínimo 6 caracteres si se proporciona
@@ -430,7 +430,7 @@ export default function Lideres() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+                  className="flex-1 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition"
                 >
                   Guardar
                 </button>
@@ -507,7 +507,7 @@ export default function Lideres() {
                     </td>
 
                     <td className="px-6 py-4 text-sm text-gray-700">
-                      <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                      <span className="px-3 py-1 bg-brand-50 text-gray-700 rounded-full text-xs font-medium">
                         {getCampaignName(leader.campaignId)}
                       </span>
                     </td>
@@ -516,7 +516,7 @@ export default function Lideres() {
                       {(can("leaders:manage") || can("leaders:update")) && (
                         <button
                           onClick={() => handleEdit(leader)}
-                          className="text-gray-400 hover:text-orange-500 transition"
+                          className="text-gray-400 hover:text-brand-500 transition"
                           title="Editar"
                         >
                           <PencilSquareIcon className="w-5 h-5" />
@@ -595,7 +595,7 @@ export default function Lideres() {
                 )}
                 <div>
                   <span className="font-semibold text-gray-900">Campaña:</span>{" "}
-                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">
+                  <span className="px-2 py-1 bg-brand-50 text-gray-700 rounded text-xs font-medium">
                     {getCampaignName(leader.campaignId)}
                   </span>
                 </div>
@@ -605,7 +605,7 @@ export default function Lideres() {
                 {can("leaders:update") && (
                   <button
                     onClick={() => handleEdit(leader)}
-                    className="flex items-center gap-2 text-orange-500 hover:text-orange-600 flex-1 justify-center py-2 rounded-lg hover:bg-orange-50 transition"
+                    className="flex items-center gap-2 text-brand-500 hover:text-brand-600 flex-1 justify-center py-2 rounded-lg hover:bg-brand-50 transition"
                   >
                     <PencilSquareIcon className="w-4 h-4" />
                     Editar

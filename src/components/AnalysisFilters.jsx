@@ -159,7 +159,7 @@ export default function AnalysisFilters({ onFiltersChange }) {
   };
 
   return (
-    <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-lg shadow mb-4 sm:mb-6">
+    <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-2xl shadow-card border border-gray-100 mb-4 sm:mb-6">
       <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-4">
         Filtros Dinámicos
       </h3>
@@ -173,7 +173,7 @@ export default function AnalysisFilters({ onFiltersChange }) {
           <select
             value={filters.departmentId}
             onChange={(e) => handleFilterChange("departmentId", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="app-input text-sm"
           >
             <option value="">Todos los departamentos</option>
             {departments.map((dept) => (
@@ -195,7 +195,7 @@ export default function AnalysisFilters({ onFiltersChange }) {
               handleFilterChange("municipalityId", e.target.value)
             }
             disabled={!filters.departmentId}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-400 text-sm"
+            className="app-input text-sm"
           >
             <option value="">
               {!filters.departmentId
@@ -226,7 +226,7 @@ export default function AnalysisFilters({ onFiltersChange }) {
               handleFilterChange("votingBoothId", e.target.value)
             }
             disabled={!filters.municipalityId}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-400 text-sm"
+            className="app-input text-sm"
           >
             <option value="">
               {!filters.municipalityId
@@ -257,7 +257,7 @@ export default function AnalysisFilters({ onFiltersChange }) {
               handleFilterChange("votingTableId", e.target.value)
             }
             disabled={!filters.votingBoothId}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-400 text-sm"
+            className="app-input text-sm"
           >
             <option value="">
               {!filters.votingBoothId

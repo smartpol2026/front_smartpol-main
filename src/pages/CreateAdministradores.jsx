@@ -143,7 +143,7 @@ export default function CreateAdministradores() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="administrador@example.com"
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 ${
+                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500 ${
                   formErrors.email ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -167,7 +167,7 @@ export default function CreateAdministradores() {
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="••••••••"
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 ${
+                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500 ${
                   formErrors.password ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -194,7 +194,7 @@ export default function CreateAdministradores() {
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 placeholder="••••••••"
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 ${
+                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500 ${
                   formErrors.confirmPassword
                     ? "border-red-500"
                     : "border-gray-300"
@@ -216,7 +216,7 @@ export default function CreateAdministradores() {
               className={`flex-1 px-4 py-2 rounded-md text-white text-sm font-medium transition-colors ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-orange-500 hover:bg-orange-600"
+                  : "bg-brand-500 hover:bg-brand-600"
               }`}
             >
               {loading ? "Creando..." : "Crear Administrador"}
