@@ -3,6 +3,7 @@ import { useState } from "react";
 import Logo from "../assets/logo.png";
 import { useUser } from "../context/UserContext";
 import { usePermission } from "../hooks/usePermission";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 function navItemClass(active) {
   return `flex items-center px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
@@ -26,7 +27,12 @@ export default function Sidebar({ isOpen, onClose }) {
   const { can, canAny } = usePermission();
   const [expandedMenu, setExpandedMenu] = useState(() => {
     if (location.pathname.startsWith("/app/reportes")) return "reportes";
-    if (location.pathname.startsWith("/app/dia-d")) return "dia-d";
+    if (
+      location.pathname.startsWith("/app/dia-d") ||
+      location.pathname.startsWith("/app/tablero-control")
+    ) {
+      return "dia-d";
+    }
     if (
       [
         "/app/digitadores",
@@ -104,6 +110,8 @@ export default function Sidebar({ isOpen, onClose }) {
   // Superadmin no debe ver estas vistas operativas
   const canSeeControlBoard = !isSuperadmin && can("control-board:read");
   const canSeeMyTable = !isSuperadmin && can("my-table:read");
+  const showActiveCampaign = isActive("/app/mi-mesa");
+  const activeCampaignName = user?.campaigns?.[0]?.name || "Sin campaña";
   const canSeeAdminPermisos = can("permissions:manage");
   const canSeeGestion =
     canManageCampaignUsers ||
@@ -134,13 +142,13 @@ export default function Sidebar({ isOpen, onClose }) {
     <>
       <div
         onClick={onClose}
-        className={`fixed inset-0 bg-ink/40 backdrop-blur-[2px] z-20 transition-opacity lg:hidden
+        className={`fixed inset-0 bg-ink/40 backdrop-blur-[2px] z-50 transition-opacity lg:hidden
           ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
       />
 
       <aside
         className={`
-          sidebar-shell fixed lg:static inset-y-0 left-0 z-30
+          sidebar-shell fixed lg:static inset-y-0 left-0 z-[60]
           h-screen h-[100dvh] self-stretch
           overflow-hidden
           bg-gradient-to-b from-brand-500 to-brand-600
@@ -154,11 +162,20 @@ export default function Sidebar({ isOpen, onClose }) {
         aria-hidden={!isOpen}
       >
         <div
-          className={`sidebar-panel w-64 min-w-[16rem] h-full min-h-0 overflow-y-auto flex flex-col ${
+          className={`sidebar-panel relative w-64 min-w-[16rem] h-full min-h-0 overflow-y-auto flex flex-col ${
             isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3 lg:opacity-0"
           }`}
         >
-        <div className="flex flex-col items-center justify-center px-5 py-7">
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-2 top-1 z-10 rounded-lg p-1.5 text-white/80 hover:bg-white/15 hover:text-white lg:hidden"
+          aria-label="Cerrar menú"
+        >
+          <XMarkIcon className="h-5 w-5" />
+        </button>
+
+        <div className="flex flex-col items-center justify-center px-5 pt-12 pb-7">
           <div className="bg-white rounded-2xl px-4 py-3 shadow-soft w-full flex items-center justify-center">
             <img src={Logo} alt="SmartPol" className="h-10 w-auto object-contain" />
           </div>
@@ -465,7 +482,7 @@ export default function Sidebar({ isOpen, onClose }) {
               </li>
             )}
 
-            {canSeeDiaD && (
+            {(canSeeDiaD || canSeeControlBoard) && (
               <li>
                 <button
                   type="button"
@@ -473,7 +490,9 @@ export default function Sidebar({ isOpen, onClose }) {
                     setExpandedMenu(expandedMenu === "dia-d" ? null : "dia-d")
                   }
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                    expandedMenu === "dia-d" || isActive("/app/dia-d")
+                    expandedMenu === "dia-d" ||
+                    isActive("/app/dia-d") ||
+                    isActive("/app/tablero-control")
                       ? "bg-white/20 text-white"
                       : "text-white/90 hover:bg-white/15 hover:text-white"
                   }`}
@@ -498,57 +517,63 @@ export default function Sidebar({ isOpen, onClose }) {
 
                 {expandedMenu === "dia-d" && (
                   <ul className="space-y-1 mt-1.5 pl-2">
-                    <li>
-                      <Link
-                        to="/app/dia-d/registro"
-                        onClick={handleLinkClick}
-                        className={subItemClass(
-                          isExactOrChild("/app/dia-d/registro") ||
-                            location.pathname === "/app/dia-d",
-                        )}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3 opacity-70" />
-                        <span>Registro</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/app/dia-d/seguimiento"
-                        onClick={handleLinkClick}
-                        className={subItemClass(
-                          isExactOrChild("/app/dia-d/seguimiento"),
-                        )}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3 opacity-70" />
-                        <span>Seguimiento</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/app/dia-d/analisis"
-                        onClick={handleLinkClick}
-                        className={subItemClass(
-                          isExactOrChild("/app/dia-d/analisis"),
-                        )}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-current mr-3 opacity-70" />
-                        <span>Análisis</span>
-                      </Link>
-                    </li>
+                    {canSeeControlBoard && (
+                      <li>
+                        <Link
+                          to="/app/tablero-control"
+                          onClick={handleLinkClick}
+                          className={subItemClass(
+                            isActive("/app/tablero-control"),
+                          )}
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-current mr-3 opacity-70" />
+                          <span>Tablero de control</span>
+                        </Link>
+                      </li>
+                    )}
+                    {canSeeDiaD && (
+                      <>
+                        <li>
+                          <Link
+                            to="/app/dia-d/registro"
+                            onClick={handleLinkClick}
+                            className={subItemClass(
+                              isExactOrChild("/app/dia-d/registro") ||
+                                location.pathname === "/app/dia-d",
+                            )}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-current mr-3 opacity-70" />
+                            <span>Registro</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/app/dia-d/seguimiento"
+                            onClick={handleLinkClick}
+                            className={subItemClass(
+                              isExactOrChild("/app/dia-d/seguimiento"),
+                            )}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-current mr-3 opacity-70" />
+                            <span>Seguimiento</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/app/dia-d/analisis"
+                            onClick={handleLinkClick}
+                            className={subItemClass(
+                              isExactOrChild("/app/dia-d/analisis"),
+                            )}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-current mr-3 opacity-70" />
+                            <span>Análisis</span>
+                          </Link>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 )}
-              </li>
-            )}
-
-            {canSeeControlBoard && (
-              <li>
-                <Link
-                  to="/app/tablero-control"
-                  onClick={handleLinkClick}
-                  className={navItemClass(isActive("/app/tablero-control"))}
-                >
-                  <span className="ml-1">Tablero de control</span>
-                </Link>
               </li>
             )}
 
@@ -579,6 +604,22 @@ export default function Sidebar({ isOpen, onClose }) {
         </nav>
 
         <div className="px-4 pb-5">
+          {showActiveCampaign && (
+            <div className="mb-3 rounded-2xl border border-emerald-200/30 bg-white/15 px-4 py-3">
+              <div className="flex items-center gap-2">
+                <span
+                  className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400"
+                  aria-hidden="true"
+                />
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-200">
+                  Campaña activa
+                </p>
+              </div>
+              <p className="mt-1 truncate text-sm font-semibold text-white" title={activeCampaignName}>
+                {activeCampaignName}
+              </p>
+            </div>
+          )}
           <div className="rounded-2xl bg-white/12 border border-white/15 px-4 py-3 text-center">
             <p className="text-[11px] uppercase tracking-wider text-white/60 font-semibold">
               SmartPol

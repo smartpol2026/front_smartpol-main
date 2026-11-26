@@ -123,19 +123,19 @@ export default function CampaignUsers({ userType = "director" }) {
         searchTerm,
       );
 
-      // Respuesta backend: { data: [{ id, email, roleId, organizationId, campaigns: [...] }], total, page, pages }
-      let list = Array.isArray(data?.data) ? data.data : [];
-
-      if (user?.roleId === ROLE_CAMPAIGN_ADMIN && user?.organizationId) {
-        list = list.filter(
-          (item) => Number(item.organizationId) === Number(user.organizationId),
-        );
-      }
+      const list = Array.isArray(data?.data)
+        ? data.data
+        : Array.isArray(data)
+          ? data
+          : [];
 
       setUsers(list);
-      setCurrentPage(data.page || page);
-      setTotalPages(data.pages || 1);
-      setTotalItems(data.total || list.length);
+      setCurrentPage(Number(data?.page) || page);
+      setTotalPages(
+        Number(data?.pages) ||
+          Math.max(1, Math.ceil(list.length / itemsPerPage)),
+      );
+      setTotalItems(Number(data?.total) || list.length);
     } catch (err) {
       setError(`No se pudieron cargar los ${title.toLowerCase()}`);
       alert.apiError(err, `No se pudieron cargar los ${title.toLowerCase()}`);
