@@ -196,8 +196,8 @@ export default function Dashboard() {
                 <div className="flex items-center gap-2">
                   {isSyncing ? (
                     <>
-                      <div className="w-2 h-2 bg-blue-500 rounded-full sync-dot"></div>
-                      <span className="text-xs font-medium text-blue-600">
+                      <div className="w-2 h-2 bg-brand-500 rounded-full sync-dot"></div>
+                      <span className="text-xs font-medium text-brand-600">
                         Sincronizando...
                       </span>
                     </>
@@ -216,11 +216,11 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
               {can("voters:read") && (
-                <div className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <div className="metric-card metric-card-entrance bg-white rounded-2xl shadow-card p-6 border border-gray-100">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <p
-                        className={`text-3xl sm:text-4xl font-bold ${loadingVoters ? "metric-loading" : "number-update"} text-green-600`}
+                        className={`text-3xl sm:text-4xl font-bold tracking-tight ${loadingVoters ? "metric-loading" : "number-update"} text-emerald-500`}
                       >
                         {loadingVoters ? (
                           <span className="fade-in-out">...</span>
@@ -228,16 +228,16 @@ export default function Dashboard() {
                           totalVoters.toLocaleString()
                         )}
                       </p>
-                      <p className="text-gray-600 text-xs sm:text-sm font-medium mt-2">
+                      <p className="text-ink-soft text-xs sm:text-sm font-medium mt-2">
                         Votantes
                       </p>
                     </div>
-                    <div className="bg-green-100 p-3 rounded-lg">
-                      <UserGroupIcon className="w-6 h-6 text-green-600" />
+                    <div className="bg-emerald-50 p-3 rounded-full">
+                      <UserGroupIcon className="w-6 h-6 text-emerald-500" />
                     </div>
                   </div>
                   <div className="mt-4 pt-3 border-t border-gray-100">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-ink-muted">
                       {loadingVoters
                         ? "Actualizando..."
                         : "Actualizado en tiempo real"}
@@ -247,11 +247,11 @@ export default function Dashboard() {
               )}
 
               {can("candidates:read") && (
-                <div className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <div className="metric-card metric-card-entrance bg-white rounded-2xl shadow-card p-6 border border-gray-100">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <p
-                        className={`text-3xl sm:text-4xl font-bold ${loadingCandidates ? "metric-loading" : "number-update"} text-orange-500`}
+                        className={`text-3xl sm:text-4xl font-bold tracking-tight ${loadingCandidates ? "metric-loading" : "number-update"} text-brand-500`}
                       >
                         {loadingCandidates ? (
                           <span className="fade-in-out">...</span>
@@ -259,16 +259,16 @@ export default function Dashboard() {
                           totalCandidates.toLocaleString()
                         )}
                       </p>
-                      <p className="text-gray-600 text-xs sm:text-sm font-medium mt-2">
+                      <p className="text-ink-soft text-xs sm:text-sm font-medium mt-2">
                         Candidatos
                       </p>
                     </div>
-                    <div className="bg-orange-100 p-3 rounded-lg">
-                      <StarIcon className="w-6 h-6 text-orange-500" />
+                    <div className="bg-brand-50 p-3 rounded-full">
+                      <StarIcon className="w-6 h-6 text-brand-500" />
                     </div>
                   </div>
                   <div className="mt-4 pt-3 border-t border-gray-100">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-ink-muted">
                       {loadingCandidates
                         ? "Actualizando..."
                         : "Actualizado en tiempo real"}
@@ -278,11 +278,11 @@ export default function Dashboard() {
               )}
 
               {can("leaders:read") && (
-                <div className="metric-card metric-card-entrance metric-card-gradient bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <div className="metric-card metric-card-entrance bg-white rounded-2xl shadow-card p-6 border border-gray-100">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <p
-                        className={`text-3xl sm:text-4xl font-bold ${loadingLeaders ? "metric-loading" : "number-update"} text-orange-500`}
+                        className={`text-3xl sm:text-4xl font-bold tracking-tight ${loadingLeaders ? "metric-loading" : "number-update"} text-brand-500`}
                       >
                         {loadingLeaders ? (
                           <span className="fade-in-out">...</span>
@@ -290,16 +290,16 @@ export default function Dashboard() {
                           totalLeaders.toLocaleString()
                         )}
                       </p>
-                      <p className="text-gray-600 text-xs sm:text-sm font-medium mt-2">
+                      <p className="text-ink-soft text-xs sm:text-sm font-medium mt-2">
                         Líderes
                       </p>
                     </div>
-                    <div className="bg-orange-100 p-3 rounded-lg">
-                      <UserIcon className="w-6 h-6 text-orange-500" />
+                    <div className="bg-brand-50 p-3 rounded-full">
+                      <UserIcon className="w-6 h-6 text-brand-500" />
                     </div>
                   </div>
                   <div className="mt-4 pt-3 border-t border-gray-100">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-ink-muted">
                       {loadingLeaders
                         ? "Actualizando..."
                         : "Actualizado en tiempo real"}

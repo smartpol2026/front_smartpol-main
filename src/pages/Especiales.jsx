@@ -170,7 +170,7 @@ export default function Especiales() {
           placeholder="Buscar por email..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
         />
       </div>
 
@@ -178,7 +178,7 @@ export default function Especiales() {
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500"></div>
           </div>
         ) : error ? (
           <div className="p-6 text-center text-red-600">{error}</div>
@@ -214,7 +214,7 @@ export default function Especiales() {
                     {(can("users:manage") || can("users:update")) && (
                       <button
                         onClick={() => handleEdit(especial)}
-                        className="text-blue-600 hover:text-blue-900 inline-flex items-center"
+                        className="text-brand-600 hover:text-gray-900 inline-flex items-center"
                       >
                         <PencilSquareIcon className="h-4 w-4 mr-1" />
                         Editar
@@ -269,7 +269,7 @@ export default function Especiales() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                 />
               </div>
               <div>
@@ -282,7 +282,7 @@ export default function Especiales() {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Dejar en blanco para no cambiar"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                 />
               </div>
               <div className="flex justify-end gap-2 pt-4">
@@ -295,7 +295,7 @@ export default function Especiales() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
+                  className="px-4 py-2 bg-brand-500 text-white rounded-md hover:bg-brand-600"
                 >
                   Guardar
                 </button>

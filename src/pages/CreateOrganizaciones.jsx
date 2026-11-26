@@ -126,7 +126,7 @@ export default function CreateOrganizaciones() {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="Ej: Partido Liberal"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
               required
             />
           </div>
@@ -146,12 +146,12 @@ export default function CreateOrganizaciones() {
               onChange={handleInputChange}
               placeholder="Describe tu organización..."
               rows="4"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition resize-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition resize-none"
             />
           </div>
 
           {/* Datos del Administrador */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <div className="bg-brand-50 border border-brand-200 rounded-lg p-4 mb-6">
             <h3 className="font-semibold text-gray-900 mb-4">
               Datos del Administrador
             </h3>
@@ -171,7 +171,7 @@ export default function CreateOrganizaciones() {
                 value={formData.adminEmail}
                 onChange={handleInputChange}
                 placeholder="admin@miorganizacion.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
                 required
               />
             </div>
@@ -191,7 +191,7 @@ export default function CreateOrganizaciones() {
                 value={formData.adminPassword}
                 onChange={handleInputChange}
                 placeholder="Mínimo 6 caracteres"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
                 required
               />
             </div>
@@ -211,7 +211,7 @@ export default function CreateOrganizaciones() {
                 value={formData.adminPasswordConfirm}
                 onChange={handleInputChange}
                 placeholder="Confirma tu contraseña"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500/30 focus:outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500/30 focus:outline-none transition"
                 required
               />
             </div>
@@ -232,7 +232,7 @@ export default function CreateOrganizaciones() {
               className={`flex-1 px-6 py-3 font-semibold rounded-lg text-white transition ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-orange-500 hover:bg-orange-600 shadow-orange-500/20 shadow-md"
+                  : "bg-brand-500 hover:bg-brand-600 shadow-brand-500/20 shadow-md"
               }`}
             >
               {loading ? "Creando..." : "Crear Organización"}

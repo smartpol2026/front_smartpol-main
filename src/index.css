@@ -2,40 +2,131 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Configuración global de tipografía */
 @layer base {
+  :root {
+    --brand: #f97316;
+    --brand-dark: #ea580c;
+    --brand-soft: #ffedd5;
+    --surface: #f4f7fe;
+    --surface-muted: #eef2f8;
+    --card: #ffffff;
+    --ink: #111827;
+    --ink-soft: #4b5563;
+    --ink-muted: #9ca3af;
+    --success: #2ecc71;
+    --warning: #f1c40f;
+    --danger: #e74c3c;
+    --radius-card: 1rem;
+    --shadow-card: 0 4px 18px rgba(27, 37, 89, 0.07);
+  }
+
   html {
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: "Plus Jakarta Sans", Segoe UI, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   body {
-    @apply text-gray-900;
-    font-feature-settings: 'kern' 1;
+    @apply text-ink bg-surface;
+    font-feature-settings: "kern" 1;
     font-variant-numeric: tabular-nums;
   }
-  
-  /* Asegurar que todos los elementos hereden la fuente correcta */
+
   * {
     font-family: inherit;
   }
-  
-  /* Párrafos y texto normal */
-  p, span, div, a, button, input, textarea, select {
-    font-family: inherit;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--ink);
+    letter-spacing: -0.02em;
   }
-  
-  /* Headers */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: inherit;
+
+  ::selection {
+    background: rgba(249, 115, 22, 0.18);
   }
 }
 
-/* Clase estándar para títulos de página */
 @layer components {
   .page-title {
-    @apply text-2xl sm:text-3xl font-bold text-gray-900;
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    @apply text-2xl sm:text-3xl font-bold tracking-tight text-gray-900;
+  }
+
+  .app-card {
+    @apply bg-white border border-gray-100/80;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .app-input {
+    @apply w-full px-3.5 py-2.5 border border-gray-200 bg-white text-sm text-ink
+      placeholder:text-ink-muted
+      focus:outline-none focus:ring-2 focus:ring-brand-500/25 focus:border-brand-400
+      disabled:bg-surface-muted disabled:text-ink-muted;
+    border-radius: 0.75rem;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .app-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+      bg-brand-500 text-white font-semibold
+      hover:bg-brand-600 active:bg-brand-700
+      disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed;
+    border-radius: 0.875rem;
+    box-shadow: 0 8px 18px rgba(249, 115, 22, 0.25);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+
+  .app-btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .app-btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+      bg-white text-ink-soft font-semibold border border-gray-200
+      hover:bg-surface-muted hover:text-ink;
+    border-radius: 0.875rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .app-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+
+  /* Soften common table headers across the app */
+  main table thead {
+    background: #f7f9fc;
+  }
+
+  main table thead th {
+    @apply text-gray-700 font-bold uppercase tracking-wide;
+  }
+
+  main table tbody tr {
+    transition: background-color 0.15s ease;
+  }
+
+  main table tbody tr:hover {
+    background-color: #f9fafb;
+  }
+}
+
+/* Animación suave del sidebar al minimizar / expandir */
+@layer utilities {
+  .sidebar-shell {
+    transition:
+      width 320ms cubic-bezier(0.4, 0, 0.2, 1),
+      transform 320ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 240ms ease,
+      box-shadow 320ms ease;
+    will-change: width, transform;
+  }
+
+  .sidebar-panel {
+    transition: opacity 220ms ease, transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

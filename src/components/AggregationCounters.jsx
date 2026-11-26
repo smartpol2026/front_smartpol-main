@@ -15,7 +15,7 @@ export default function AggregationCounters({ aggregations, onCounterClick }) {
   };
 
   return (
-    <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-lg shadow mb-4 sm:mb-6">
+    <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-2xl shadow-card border border-gray-100 mb-4 sm:mb-6">
       <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">
         Resumen de Información
       </h2>
@@ -34,10 +34,10 @@ export default function AggregationCounters({ aggregations, onCounterClick }) {
                   <button
                     key={idx}
                     onClick={() => onCounterClick("gender", item.gender)}
-                    className="w-full text-left p-1 sm:p-2 rounded hover:bg-blue-200 transition flex justify-between items-center text-xs sm:text-sm"
+                    className="w-full text-left p-1 sm:p-2 rounded hover:bg-brand-100 transition flex justify-between items-center text-xs sm:text-sm"
                   >
                     <span>{renderGenderLabel(item.gender)}</span>
-                    <span className="font-semibold text-blue-700">
+                    <span className="font-semibold text-gray-700">
                       {item.count || 0}
                     </span>
                   </button>
@@ -121,7 +121,7 @@ export default function AggregationCounters({ aggregations, onCounterClick }) {
         {aggregations.byLocation &&
           Array.isArray(aggregations.byLocation) &&
           aggregations.byLocation.length > 0 && (
-            <div className="border rounded-lg p-2 sm:p-3 lg:p-4 bg-gradient-to-br from-orange-50 to-orange-100">
+            <div className="border rounded-lg p-2 sm:p-3 lg:p-4 bg-gradient-to-br from-brand-50 to-orange-100">
               <h3 className="font-semibold text-gray-700 mb-2 sm:mb-3 text-xs sm:text-sm">
                 Por Ubicación
               </h3>
@@ -142,7 +142,7 @@ export default function AggregationCounters({ aggregations, onCounterClick }) {
                           municipalityId,
                         })
                       }
-                      className="w-full text-left p-1 sm:p-2 rounded hover:bg-orange-200 transition flex justify-between items-center text-xs sm:text-sm"
+                      className="w-full text-left p-1 sm:p-2 rounded hover:bg-brand-200 transition flex justify-between items-center text-xs sm:text-sm"
                       title={`${departmentName} - ${municipalityName}`}
                     >
                       <div className="flex flex-col min-w-0 flex-1">
@@ -151,7 +151,7 @@ export default function AggregationCounters({ aggregations, onCounterClick }) {
                           {municipalityName}
                         </span>
                       </div>
-                      <span className="font-semibold text-orange-700 ml-2 flex-shrink-0">
+                      <span className="font-semibold text-brand-700 ml-2 flex-shrink-0">
                         {item.count || 0}
                       </span>
                     </button>

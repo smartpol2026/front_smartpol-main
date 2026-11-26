@@ -62,3 +62,10 @@ export async function changeOwnPassword(newPassword) {
     body: JSON.stringify({ newPassword }),
   }, 'cambiar contraseña');
 }
+
+export async function assignUserCampaign(userId, campaignId) {
+  return apiCall(`${API_URL}/users/${userId}/campaigns/${campaignId}`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+  }, 'asignar campaña al usuario');
+}

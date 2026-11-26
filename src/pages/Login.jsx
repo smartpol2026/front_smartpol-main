@@ -4,7 +4,6 @@ import { login } from "../api/auth";
 import { notifyStorageChange } from "../context/UserContext";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
-// IMPORTA EL LOGO
 import Logo from "../assets/logo.png";
 
 export default function Login() {
@@ -19,13 +18,8 @@ export default function Login() {
     setError("");
 
     try {
-      const data = await login(email, password);
-
-      // El login() en auth.js ya guarda en localStorage
-      // Notificar a UserContext que localStorage cambió
+      await login(email, password);
       notifyStorageChange();
-
-      // Navegar inmediatamente
       navigate("/app/dashboard", { replace: true });
     } catch (err) {
       setError(err.message || "Usuario o contraseña incorrectos");
@@ -33,49 +27,58 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200 p-4">
-      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-sm">
-        {/* Encabezado con logo */}
-        <div className="text-center mb-6">
-          <img src={Logo} alt="SmartPol" className="mx-auto w-32 mb-2" />
-          <h2 className="text-xl font-bold">INICIAR SESIÓN</h2>
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-surface">
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-500/15 via-surface to-brand-600/10" />
+      <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-brand-500/20 blur-3xl" />
+      <div className="absolute -bottom-28 -left-20 w-96 h-96 rounded-full bg-brand-600/15 blur-3xl" />
+
+      <div className="relative bg-white rounded-3xl shadow-card border border-gray-100 p-8 w-full max-w-sm">
+        <div className="text-center mb-7">
+          <div className="mx-auto mb-4 w-fit rounded-2xl bg-surface px-5 py-3 border border-gray-100">
+            <img src={Logo} alt="SmartPol" className="mx-auto h-12 w-auto object-contain" />
+          </div>
+          <h2 className="text-xl font-bold text-ink tracking-tight">
+            INICIAR SESIÓN
+          </h2>
+          <p className="text-sm text-ink-muted mt-1">
+            Accede a tu panel de administración
+          </p>
         </div>
 
-        {/* Error */}
         {error && (
-          <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+          <p className="text-red-500 text-sm text-center mb-4 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+            {error}
+          </p>
         )}
 
-        {/* Formulario */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
           <div>
             <input
               type="text"
               placeholder="Usuario"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 transition
-                ${!email && error ? "border-red-500" : "border-gray-300"}`}
+              className={`app-input ${
+                !email && error ? "border-red-400 focus:ring-red-300" : ""
+              }`}
             />
             {!email && error && (
               <p className="text-red-500 text-xs mt-1">⚠ Campo requerido</p>
             )}
           </div>
 
-          {/* Contraseña */}
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+              className="app-input pr-11"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
             >
               {showPassword ? (
                 <EyeSlashIcon className="w-5 h-5" />
@@ -85,11 +88,7 @@ export default function Login() {
             </button>
           </div>
 
-          {/* Botón ingresar */}
-          <button
-            type="submit"
-            className="w-full bg-orange-500 text-white py-2 rounded-md font-semibold hover:bg-orange-600 transition-colors"
-          >
+          <button type="submit" className="app-btn-primary w-full py-3">
             INGRESAR
           </button>
         </form>

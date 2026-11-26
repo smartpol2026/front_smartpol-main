@@ -138,14 +138,14 @@ export default function VoterSearchAndRegister({ onVoteRegistered }) {
           className={`mt-6 p-6 sm:p-7 rounded-xl border-2 ${
             voter.hasVoted
               ? "bg-green-50 border-green-300"
-              : "bg-orange-50 border-orange-300"
+              : "bg-brand-50 border-orange-300"
           }`}
         >
           <div className="flex items-center gap-3 mb-5">
             {voter.hasVoted ? (
               <CheckCircleIcon className="w-6 h-6 text-green-600" />
             ) : (
-              <ExclamationTriangleIcon className="w-6 h-6 text-orange-600" />
+              <ExclamationTriangleIcon className="w-6 h-6 text-brand-600" />
             )}
             <h3
               className={`text-lg font-bold ${
@@ -232,7 +232,7 @@ export default function VoterSearchAndRegister({ onVoteRegistered }) {
                       <span className="font-medium text-gray-900">
                         {candidate.name}
                       </span>
-                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-semibold">
+                      <span className="text-xs bg-brand-50 text-gray-700 px-2 py-1 rounded-full font-semibold">
                         {candidate.party}
                       </span>
                     </div>
@@ -250,7 +250,7 @@ export default function VoterSearchAndRegister({ onVoteRegistered }) {
             className={`w-full font-bold py-3 sm:py-4 px-4 rounded-lg transition duration-300 flex items-center justify-center gap-2 text-white ${
               voter.hasVoted
                 ? "bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:from-gray-400 disabled:to-gray-400"
-                : "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-400 disabled:to-gray-400"
+                : "bg-gradient-to-r from-brand-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-400 disabled:to-gray-400"
             }`}
           >
             {voter.hasVoted ? (
@@ -329,7 +329,7 @@ export default function VoterSearchAndRegister({ onVoteRegistered }) {
           <button
             type="submit"
             disabled={loading}
-            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition duration-300 flex items-center gap-2 whitespace-nowrap shadow-lg hover:shadow-xl"
+            className="bg-gradient-to-r from-brand-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition duration-300 flex items-center gap-2 whitespace-nowrap shadow-lg hover:shadow-xl"
           >
             {loading ? (
               <>

@@ -16,9 +16,17 @@ import Digitadores from "./pages/Digitadores";
 import Administradores from "./pages/Administradores";
 import Especiales from "./pages/Especiales";
 import Reportes from "./pages/Reportes";
+import CandidateReport from "./pages/CandidateReport";
+import LeaderReport from "./pages/LeaderReport";
+import PartyReport from "./pages/PartyReport";
+import PoliticalStatusReport from "./pages/PoliticalStatusReport";
 import CreateCandidates from "./pages/CreateCandidates";
 import CreateLeaders from "./pages/CreateLeaders";
 import CreateDigitadores from "./pages/CreateDigitadores";
+import CreateDirector from "./pages/CreateDirector";
+import CreateWitness from "./pages/CreateWitness";
+import Directors from "./pages/Directors";
+import Witnesses from "./pages/Witnesses";
 import CreateEspeciales from "./pages/CreateEspeciales";
 import AssignCandidates from "./pages/AssignCandidates";
 import AdminPermissions from "./pages/AdminPermissions";
@@ -31,6 +39,8 @@ import CreateOrganizaciones from "./pages/CreateOrganizaciones";
 import Campanas from "./pages/Campanas";
 import CreateCampanas from "./pages/CreateCampanas";
 import DiaD from "./pages/DiaD";
+import MyTable from "./pages/MyTable";
+import ControlBoard from "./pages/ControlBoard";
 import AppRedirect from "./components/AppRedirect";
 
 /**
@@ -53,7 +63,7 @@ function LoginPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Cargando...</p>
         </div>
       </div>
@@ -65,7 +75,7 @@ function LoginPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Redirigiendo...</p>
         </div>
       </div>
@@ -291,6 +301,37 @@ function App() {
               }
             />
 
+            {/* Directores de campaña (roleId 7) */}
+            <Route path="directores-campana" element={<Directors />} />
+            <Route path="crear-directores-campana" element={<CreateDirector />} />
+
+            {/* Testigos electorales (roleId 8) */}
+            <Route path="testigos-electorales" element={<Witnesses />} />
+            <Route
+              path="crear-testigos-electorales"
+              element={<CreateWitness />}
+            />
+
+            {/* Mi mesa - Testigo electoral (no Superadmin) */}
+            <Route
+              path="mi-mesa"
+              element={
+                <PermissionRoute requiredPermission="my-table:read">
+                  <MyTable />
+                </PermissionRoute>
+              }
+            />
+
+            {/* Tablero de control - Director (no Superadmin) */}
+            <Route
+              path="tablero-control"
+              element={
+                <PermissionRoute requiredPermission="control-board:read">
+                  <ControlBoard />
+                </PermissionRoute>
+              }
+            />
+
             {/* Crear Usuarios Especiales - Requiere create o manage */}
             <Route
               path="crear-especiales"
@@ -328,10 +369,52 @@ function App() {
                 </PermissionRoute>
               }
             />
+            <Route
+              path="reportes/candidatos"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <CandidateReport />
+                </PermissionRoute>
+              }
+            />
+            <Route
+              path="reportes/lideres"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <LeaderReport />
+                </PermissionRoute>
+              }
+            />
+
+            <Route
+              path="reportes/partidos"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <PartyReport />
+                </PermissionRoute>
+              }
+            />
+
+            <Route
+              path="reportes/estado-politico"
+              element={
+                <PermissionRoute requiredPermission="reports:read">
+                  <PoliticalStatusReport />
+                </PermissionRoute>
+              }
+            />
 
             {/* Día D - Panel de Votación - Requiere permiso voting:access */}
             <Route
               path="dia-d"
+              element={
+                <PermissionRoute requiredPermission="voting:access">
+                  <DiaD />
+                </PermissionRoute>
+              }
+            />
+            <Route
+              path="dia-d/:view"
               element={
                 <PermissionRoute requiredPermission="voting:access">
                   <DiaD />

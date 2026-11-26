@@ -6,6 +6,18 @@ export async function getCandidates() {
   }, "obtener candidatos");
 }
 
+export async function getCandidateParties(search = "") {
+  const params = new URLSearchParams();
+  if (search.trim()) params.append("search", search.trim());
+  const query = params.toString();
+
+  return apiCall(
+    `${API_URL}/candidates/parties${query ? `?${query}` : ""}`,
+    { headers: getAuthHeaders() },
+    "obtener partidos",
+  );
+}
+
 export async function getAllCandidates() {
   try {
     let allCandidates = [];

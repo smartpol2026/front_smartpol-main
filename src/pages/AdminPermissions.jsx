@@ -209,7 +209,7 @@ export default function AdminPermissions() {
               }}
               className={`flex-1 py-5 px-6 text-center font-bold text-lg transition-all flex items-center justify-center gap-2 ${
                 activeTab === "roles"
-                  ? "border-b-4 border-orange-600 text-orange-600 bg-orange-50"
+                  ? "border-b-4 border-orange-600 text-brand-600 bg-brand-50"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
@@ -224,7 +224,7 @@ export default function AdminPermissions() {
               }}
               className={`flex-1 py-5 px-6 text-center font-bold text-lg transition-all flex items-center justify-center gap-2 ${
                 activeTab === "users"
-                  ? "border-b-4 border-orange-600 text-orange-600 bg-orange-50"
+                  ? "border-b-4 border-orange-600 text-brand-600 bg-brand-50"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
@@ -249,7 +249,7 @@ export default function AdminPermissions() {
                       );
                       setSelectedRole(role || null);
                     }}
-                    className="w-full border-2 border-gray-300 rounded-lg shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-200 p-3 text-gray-900 font-medium transition-all"
+                    className="w-full border-2 border-gray-300 rounded-lg shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-orange-200 p-3 text-gray-900 font-medium transition-all"
                   >
                     <option value="">Seleccionar un rol...</option>
                     {roles.map((role) => (
@@ -263,9 +263,9 @@ export default function AdminPermissions() {
 
                 {selectedRole && (
                   <div className="space-y-6">
-                    <div className="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-lg p-5">
+                    <div className="bg-gradient-to-r from-brand-50 to-amber-50 border-2 border-brand-200 rounded-lg p-5">
                       <p className="text-sm font-semibold text-orange-900 leading-relaxed">
-                        <span className="font-bold text-orange-600">
+                        <span className="font-bold text-brand-600">
                           💡 Tip:
                         </span>{" "}
                         Los permisos en{" "}
@@ -274,7 +274,7 @@ export default function AdminPermissions() {
                         </span>{" "}
                         están asignados a este rol. Haz clic en un permiso para
                         asignarlo o revocarlo. Usa el botón{" "}
-                        <span className="font-bold text-orange-600">CRUD</span>{" "}
+                        <span className="font-bold text-brand-600">CRUD</span>{" "}
                         para activar/desactivar todos los permisos de una
                         sección.
                       </p>
@@ -311,7 +311,7 @@ export default function AdminPermissions() {
                       );
                       setSelectedUser(user || null);
                     }}
-                    className="w-full border-2 border-gray-300 rounded-lg shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-200 p-3 text-gray-900 font-medium transition-all"
+                    className="w-full border-2 border-gray-300 rounded-lg shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-orange-200 p-3 text-gray-900 font-medium transition-all"
                   >
                     <option value="">Seleccionar un usuario...</option>
                     {users.map((user) => (
@@ -324,13 +324,13 @@ export default function AdminPermissions() {
 
                 {selectedUser && (
                   <div className="space-y-6">
-                    <div className="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-lg p-5">
+                    <div className="bg-gradient-to-r from-brand-50 to-amber-50 border-2 border-brand-200 rounded-lg p-5">
                       <p className="text-sm font-semibold text-orange-900 leading-relaxed">
-                        <span className="font-bold text-orange-600">
+                        <span className="font-bold text-brand-600">
                           💡 Tip:
                         </span>{" "}
                         Los permisos en{" "}
-                        <span className="font-bold text-orange-600">
+                        <span className="font-bold text-brand-600">
                           color naranja
                         </span>{" "}
                         son heredados del rol{" "}

@@ -250,7 +250,7 @@ export default function CreateCandidates() {
                   value={formData.email}
                   onChange={handleInputChange}
                   className={`
-                    mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                    mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                     ${formErrors.email ? "border-red-500 bg-red-50" : "border-gray-300"}
                   `}
                   placeholder="candidato@example.com"
@@ -277,7 +277,7 @@ export default function CreateCandidates() {
                     value={formData.password}
                     onChange={handleInputChange}
                     className={`
-                      mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                      mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                       ${formErrors.password ? "border-red-500 bg-red-50" : "border-gray-300"}
                     `}
                     placeholder="••••••••"
@@ -303,7 +303,7 @@ export default function CreateCandidates() {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     className={`
-                      mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                      mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                       ${
                         formErrors.confirmPassword
                           ? "border-red-500 bg-red-50"
@@ -340,7 +340,7 @@ export default function CreateCandidates() {
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`
-                    mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                    mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                     ${formErrors.name ? "border-red-500 bg-red-50" : "border-gray-300"}
                   `}
                   placeholder="Juan Pérez"
@@ -364,7 +364,7 @@ export default function CreateCandidates() {
                     value={formData.corporation_id}
                     onChange={handleInputChange}
                     className={`
-                      mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                      mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                       ${formErrors.corporation_id ? "border-red-500 bg-red-50" : "border-gray-300"}
                     `}
                   >
@@ -396,7 +396,7 @@ export default function CreateCandidates() {
                     value={formData.party}
                     onChange={handleInputChange}
                     className={`
-                      mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                      mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                       ${formErrors.party ? "border-red-500 bg-red-50" : "border-gray-300"}
                     `}
                     placeholder="Nombre del partido"
@@ -448,7 +448,7 @@ export default function CreateCandidates() {
                   value={formData.number}
                   onChange={handleInputChange}
                   className={`
-                    mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                    mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                     ${formErrors.number ? "border-red-500 bg-red-50" : "border-gray-300"}
                   `}
                   placeholder="1"
@@ -475,7 +475,7 @@ export default function CreateCandidates() {
                   onChange={handleInputChange}
                   disabled={userRole === 2}
                   className={`
-                    mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                    mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                     ${formErrors.organizationId ? "border-red-500 bg-red-50" : "border-gray-300"}
                     ${userRole === 2 ? "bg-gray-100 cursor-not-allowed" : ""}
                   `}
@@ -508,7 +508,7 @@ export default function CreateCandidates() {
                   onChange={handleInputChange}
                   disabled={!formData.organizationId || campaigns.length === 0}
                   className={`
-                    mt-1 block w-full rounded-lg shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm border p-3
+                    mt-1 block w-full rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 sm:text-sm border p-3
                     ${formErrors.campaignId ? "border-red-500 bg-red-50" : "border-gray-300"}
                     ${!formData.organizationId || campaigns.length === 0 ? "bg-gray-100 cursor-not-allowed" : ""}
                   `}
@@ -546,7 +546,7 @@ export default function CreateCandidates() {
                 className={`px-6 py-3 font-semibold rounded-lg text-white transition ${
                   loading || loadingData
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-orange-500 hover:bg-orange-600 shadow-orange-500/20 shadow-md"
+                    : "bg-brand-500 hover:bg-brand-600 shadow-brand-500/20 shadow-md"
                 }`}
               >
                 {loading ? "Creando..." : "Crear Candidato"}

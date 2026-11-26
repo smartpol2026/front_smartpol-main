@@ -65,21 +65,21 @@ export default function Digitadores() {
         itemsPerPage,
         searchTerm,
       );
-
-      // ✅ FILTRAR en FRONTEND por organizationId solo si es admin de organización
-      let digitadorList = Array.isArray(data.data) ? data.data : [];
-
-      if (currentUser?.roleId === 2 && currentUser?.organizationId) {
-        digitadorList = digitadorList.filter(
-          (digitador) =>
-            digitador.organizationId === currentUser.organizationId,
-        );
-      }
-
-      setDigitadores(digitadorList);
-      setCurrentPage(data.page || page);
-      setTotalPages(data.pages || 1);
-      setTotalItems(data.total || digitadorList.length);
+      // La API ya pagina: { data, total, page, limit, pages }.
+      const list = Array.isArray(data?.data)
+        ? data.data
+        : Array.isArray(data)
+          ? data
+          : [];
+      // No se vuelve a filtrar ni a cortar la lista: el backend ya procesa
+      // organización, búsqueda y paginación.
+      setDigitadores(list);
+      setCurrentPage(Number(data?.page) || page);
+      setTotalPages(
+        Number(data?.pages) ||
+          Math.max(1, Math.ceil(list.length / itemsPerPage)),
+      );
+      setTotalItems(Number(data?.total) || list.length);
     } catch (err) {
       setError("No se pudieron cargar los digitadores");
       alert.apiError(err, "No se pudieron cargar los digitadores");
@@ -215,7 +215,7 @@ export default function Digitadores() {
           placeholder="Buscar por email..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-orange-500/30 focus:outline-none"
+          className="w-full sm:w-96 px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
         />
       </div>
 
@@ -223,7 +223,7 @@ export default function Digitadores() {
       {loading ? (
         <div className="flex items-center justify-center min-h-64">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500 mx-auto mb-4"></div>
             <p className="text-gray-600">Cargando digitadores...</p>
           </div>
         </div>
@@ -242,13 +242,13 @@ export default function Digitadores() {
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full table-fixed text-sm">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                  <th className="w-3/5 px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                     Email
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                  <th className="w-2/5 px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                     Acciones
                   </th>
                 </tr>
@@ -259,46 +259,51 @@ export default function Digitadores() {
                     key={digitador.id}
                     className="hover:bg-gray-50 transition"
                   >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4">
+                      <div
+                        className="max-w-full truncate font-medium text-gray-900"
+                        title={digitador.email}
+                      >
                         {digitador.email}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={() => handleEdit(digitador)}
-                        disabled={!can("users:manage") && !can("users:update")}
-                        title={
-                          !can("users:manage") && !can("users:update")
-                            ? "No tienes permiso para editar"
-                            : ""
-                        }
-                        className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition mr-2 ${
-                          can("users:manage") || can("users:update")
-                            ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
-                            : "bg-gray-100 text-gray-400 cursor-not-allowed"
-                        }`}
-                      >
-                        <PencilSquareIcon className="w-4 h-4" />
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => handleDelete(digitador.id)}
-                        disabled={!can("users:manage") && !can("users:delete")}
-                        title={
-                          !can("users:manage") && !can("users:delete")
-                            ? "No tienes permiso para eliminar"
-                            : ""
-                        }
-                        className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition ${
-                          can("users:manage") || can("users:delete")
-                            ? "bg-red-100 text-red-600 hover:bg-red-200"
-                            : "bg-gray-100 text-gray-400 cursor-not-allowed"
-                        }`}
-                      >
-                        <TrashIcon className="w-4 h-4" />
-                        Eliminar
-                      </button>
+                    <td className="px-6 py-4 whitespace-nowrap font-medium">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleEdit(digitador)}
+                          disabled={!can("users:manage") && !can("users:update")}
+                          title={
+                            !can("users:manage") && !can("users:update")
+                              ? "No tienes permiso para editar"
+                              : ""
+                          }
+                          className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition ${
+                            can("users:manage") || can("users:update")
+                              ? "bg-brand-50 text-brand-600 hover:bg-brand-100"
+                              : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                          }`}
+                        >
+                          <PencilSquareIcon className="w-4 h-4" />
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => handleDelete(digitador.id)}
+                          disabled={!can("users:manage") && !can("users:delete")}
+                          title={
+                            !can("users:manage") && !can("users:delete")
+                              ? "No tienes permiso para eliminar"
+                              : ""
+                          }
+                          className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition ${
+                            can("users:manage") || can("users:delete")
+                              ? "bg-red-100 text-red-600 hover:bg-red-200"
+                              : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                          }`}
+                        >
+                          <TrashIcon className="w-4 h-4" />
+                          Eliminar
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -346,7 +351,7 @@ export default function Digitadores() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                   required
                 />
               </div>
@@ -361,7 +366,7 @@ export default function Digitadores() {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Dejar en blanco para no cambiar"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-brand-500/30 focus:border-brand-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Mínimo 6 caracteres si se proporciona
@@ -371,7 +376,7 @@ export default function Digitadores() {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 transition"
+                  className="flex-1 px-4 py-2 bg-brand-500 text-white rounded-lg font-medium hover:bg-brand-600 transition"
                 >
                   Guardar Cambios
                 </button>

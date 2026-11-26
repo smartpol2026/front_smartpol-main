@@ -17,7 +17,7 @@ export default function Forbidden() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-red-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         {/* Icono */}
         <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
@@ -51,7 +51,7 @@ export default function Forbidden() {
         <div className="flex flex-col gap-3">
           <button
             onClick={handleGoToDashboard}
-            className="w-full px-6 py-3 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors"
+            className="w-full px-6 py-3 bg-brand-600 text-white font-medium rounded-lg hover:bg-brand-700 transition-colors"
           >
             Ir al Dashboard
           </button>
